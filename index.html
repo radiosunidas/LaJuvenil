@@ -2,447 +2,249 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
-  <title>La JuVeNiL Te Enciende Bien...!</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>La JuVeNiL — Te Enciende Bien</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/akira-expanded" rel="stylesheet">
   
   <meta name="theme-color" content="#53012e">
-
-  <meta property="og:image" content="assets/redes.png"/>
-  <meta property="og:image:type" content="image/png"/>
-  <meta property="og:image:width" content="600"/>
-  <meta property="og:image:height" content="360"/>
-  <meta property="og:title" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
-  <meta property="og:description" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
-  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon"/>
-
-  <link rel="stylesheet" href="css/main.min.css">
-  <link rel="stylesheet" href="custom.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
-  
-  <!-- ✅ Manifest -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#53012e">
-
+  
   <style>
-    /* ✅ VENTANA DE INSTALACIÓN */
-    .install-prompt-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-    }
-    .install-prompt-hidden {
-      display: none !important;
-    }
-    .install-prompt-content {
-      background: #fff;
-      color: #333;
-      padding: 2rem;
-      border-radius: 16px;
-      max-width: 420px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      animation: aparecerSuave 0.3s ease-out;
-    }
-    @keyframes aparecerSuave {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .install-prompt-content h2 {
-      color: #53012e;
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-    }
-    .install-prompt-content p {
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-    .install-buttons {
-      display: flex;
-      gap: 0.8rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .install-btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.25s ease;
-      font-size: 0.95rem;
-    }
-    .install-btn.install {
-      background: #53012e;
-      color: #fff;
-    }
-    .install-btn.install:hover {
-      background: #7a0443;
-      transform: translateY(-2px);
-    }
-    .install-btn.close {
-      background: #f0f0f0;
-      color: #444;
-    }
-    .install-btn.close:hover {
-      background: #e0e0e0;
-    }
-
-    /* ✅ Botón Play */
-    .player-button-play {
-      width: 72px !important;
-      height: 72px !important;
-      border-radius: 50% !important;
-      background: #fff !important;
-      color: #53012e !important;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5) !important;
-      transition: all 0.2s ease !important;
-      position: relative !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      border: none;
-      cursor: pointer;
-    }
-    .player-button-play svg {
-      width: 32px !important;
-      height: 32px !important;
-      transform: none !important;
-      animation: none !important;
-      position: relative !important;
-      z-index: 2 !important;
-    }
-    .player-button-play.reproduciendo::after {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      border-top-color: #ffc107;
-      border-right-color: #ffc107;
-      animation: bordeGirando 1s linear infinite;
-    }
-    @keyframes bordeGirando {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* ✅ Audio nativo oculto */
-    .audio-player-native {
-      display: none;
-    }
-
-    /* ✅ Corrección de imágenes */
-    img.player-cover-image,
-    img.player-artwork-mini,
-    img.player-artwork-style img {
-      background: #53012e;
-      object-fit: cover;
-    }
-
-    /* ✅ Overlay para cerrar modales */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 100;
-      display: none;
-    }
-    .modal-overlay.active {
-      display: block;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+    body { background: linear-gradient(135deg, #53012e 0%, #2c0019 100%); min-height: 100vh; color: white; }
+    
+    .container { max-width: 500px; margin: 0 auto; padding: 2rem; text-align: center; }
+    .logo { width: 200px; height: 200px; margin: 0 auto 2rem; border-radius: 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #ffd700; }
+    .subtitle { font-size: 1rem; opacity: 0.8; margin-bottom: 2rem; }
+    
+    .play-btn { width: 100px; height: 100px; border-radius: 50%; background: #ffd700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; transition: all 0.3s ease; }
+    .play-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
+    .play-btn.playing { background: #fff; }
+    .play-btn svg { width: 40px; height: 40px; fill: #53012e; margin-left: 5px; }
+    .play-btn.pause-btn svg { margin-left: 0; }
+    
+    .stations-list { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem; margin-top: 2rem; }
+    .stations-list h3 { margin-bottom: 1rem; color: #ffd700; }
+    .station-item { padding: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: background 0.2s; }
+    .station-item:last-child { border-bottom: none; }
+    .station-item:hover { background: rgba(255,255,255,0.1); border-radius: 6px; }
+    .station-item.active { background: rgba(255, 215, 0, 0.2); border-radius: 6px; }
+    
+    .install-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .install-modal.hidden { display: none; }
+    .install-content { background: white; color: #333; padding: 2rem; border-radius: 12px; max-width: 350px; width: 90%; text-align: center; }
+    .install-content h2 { color: #53012e; margin-bottom: 1rem; font-size: 1.2rem; }
+    .install-buttons { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; }
+    .btn { padding: 0.6rem 1.2rem; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; }
+    .btn-primary { background: #53012e; color: white; }
+    .btn-secondary { background: #eee; color: #333; }
+    
+    .status-text { margin-top: 1rem; font-size: 0.9rem; opacity: 0.7; }
+    .hidden { display: none !important; }
   </style>
+</head>
+<body>
+
+  <!-- 📦 Ventana de Instalación -->
+  <div id="installModal" class="install-modal">
+    <div class="install-content">
+      <h2>📻 Bienvenido a La JuVeNiL</h2>
+      <p>¿Quieres instalar nuestra radio en tu dispositivo? ¡Escúchanos con un solo clic!</p>
+      <div class="install-buttons">
+        <button class="btn btn-primary" id="installBtn">📥 Instalar</button>
+        <button class="btn btn-secondary" id="closeInstall">✕ Más tarde</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎵 Reproductor -->
+  <div class="container">
+    <div class="logo">
+      <img src="assets/logo_model.jpg" alt="La JuVeNiL" onerror="this.src='https://via.placeholder.com/200/53012e/ffffff?text=La+JuVeNiL'">
+    </div>
+    
+    <h1 id="stationName">La JuVeNiL</h1>
+    <p class="subtitle" id="stationDesc">Te Enciende Bien...!</p>
+    
+    <button class="play-btn" id="playBtn">
+      <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <p class="status-text" id="statusText">Haz clic para reproducir ▶️</p>
+    
+    <div class="stations-list">
+      <h3>📻 Elige tu Radio</h3>
+      <div id="stationsContainer"></div>
+    </div>
+  </div>
+
+  <!-- 🔊 Audio Oculto -->
+  <audio id="audioPlayer" preload="auto">
+    <source src="https://stream.zeno.fm/hdueixh3dwquv.mp3" type="audio/mpeg">
+  
 
   <script>
-    window.streams = {
-      timeRefresh: 5000,
-      currentStation: 0,
-      stations: [
-        {
-          name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-          hash: "La JuVeNiL",
-          description: "Escúchanos en vivo",
-          logo: "assets/marca_model.png",
-          album: "assets/logo_model.jpg",
-          cover: "assets/logo_model.jpg",
-          stream_url: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
-          social: {
-            facebook: "https://www.facebook.com/",
-            youtube: "https://www.youtube.com/",
-            instagram: "https://www.instagram.com/",
-            tiktok: "https://www.tiktok.com/",
-          }
-        },
-        {
-          name: "RADIOS UNIDAS",
-          hash: "radiosunidas",
-          description: "La señal que une a todos",
-          logo: "assets/marca.png",
-          album: "assets/radiosunidas.jpg",
-          cover: "assets/radiosunidas.jpg",
-          stream_url: "",
-          social: {
-            facebook: "https://www.facebook.com/RadiosUnidas",
-            youtube: "https://www.youtube.com/@RadiosUnidas",
-            instagram: "https://www.instagram.com/radiosunidas",
-            tiktok: "https://www.tiktok.com/@radiosunidas",
-          }
-        }
-      ]
-    };
-
-    let deferredPrompt;
-    let audioElement = null;
-    let isPlaying = false;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // ✅ VENTANA DE INSTALACIÓN
-      const installModal = document.getElementById('installPromptModal');
-      const installBtn = document.getElementById('installBtn');
-      const closeBtn = document.getElementById('closeInstallBtn');
-
-      if (localStorage.getItem('pwaInstalled') === 'true') {
-        installModal.classList.add('install-prompt-hidden');
+    // 📋 Lista de Radios
+    const stations = [
+      {
+        name: "La JuVeNiL",
+        description: "Te Enciende Bien...!",
+        stream: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
+        logo: "assets/logo_model.jpg"
+      },
+      {
+        name: "RADIOS UNIDAS",
+        description: "La señal que une a todos",
+        stream: "",
+        logo: "assets/radiosunidas.jpg"
       }
+    ];
 
+    let currentStation = 0;
+    let isPlaying = false;
+    let deferredPrompt;
+
+    // 🚀 Iniciar todo
+    document.addEventListener('DOMContentLoaded', () => {
+      initStations();
+      initPlayButton();
+      initInstallPrompt();
+    });
+
+    // 📻 Cargar lista de radios
+    function initStations() {
+      const container = document.getElementById('stationsContainer');
+      container.innerHTML = '';
+      
+      stations.forEach((station, index) => {
+        const item = document.createElement('div');
+        item.className = `station-item ${index === currentStation ? 'active' : ''}`;
+        item.innerHTML = `<strong>${station.name}</strong><br><small>${station.description}</small>`;
+        item.addEventListener('click', () => switchStation(index));
+        container.appendChild(item);
+      });
+    }
+
+    // 🔄 Cambiar de radio
+    function switchStation(index) {
+      currentStation = index;
+      const station = stations[index];
+      
+      document.getElementById('stationName').textContent = station.name;
+      document.getElementById('stationDesc').textContent = station.description;
+      
+      // Actualizar clase activa
+      document.querySelectorAll('.station-item').forEach((el, i) => {
+        el.classList.toggle('active', i === index);
+      });
+      
+      // Detener si está reproduciendo
+      if (isPlaying) {
+        document.getElementById('audioPlayer').pause();
+        isPlaying = false;
+        updatePlayButton();
+      }
+      
+      // Actualizar fuente de audio
+      const audio = document.getElementById('audioPlayer');
+      audio.src = station.stream;
+      audio.load();
+      
+      document.getElementById('statusText').textContent = station.stream ? 'Haz clic para reproducir ▶️' : 'Próximamente disponible';
+    }
+
+    // ▶️ Botón Play/Pause
+    function initPlayButton() {
+      const btn = document.getElementById('playBtn');
+      const audio = document.getElementById('audioPlayer');
+      const statusText = document.getElementById('statusText');
+      
+      btn.addEventListener('click', () => {
+        if (!stations[currentStation].stream) {
+          statusText.textContent = '⚠️ No hay stream disponible';
+          return;
+        }
+        
+        if (isPlaying) {
+          audio.pause();
+          isPlaying = false;
+          statusText.textContent = 'Reproducción pausada';
+        } else {
+          audio.play()
+            .then(() => {
+              isPlaying = true;
+              statusText.textContent = '🎵 En vivo — Reproduciendo...';
+            })
+            .catch(err => {
+              console.error('Error:', err);
+              statusText.textContent = '❌ Error al conectar. Intenta de nuevo.';
+            });
+        }
+        updatePlayButton();
+      });
+      
+      // Detectar errores de audio
+      audio.addEventListener('error', () => {
+        statusText.textContent = '❌ No se pudo conectar al stream';
+        isPlaying = false;
+        updatePlayButton();
+      });
+    }
+
+    function updatePlayButton() {
+      const icon = document.getElementById('playIcon');
+      const btn = document.getElementById('playBtn');
+      
+      if (isPlaying) {
+        icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+        btn.classList.add('playing', 'pause-btn');
+      } else {
+        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        btn.classList.remove('playing', 'pause-btn');
+      }
+    }
+
+    // 📦 Ventana de Instalación
+    function initInstallPrompt() {
+      const modal = document.getElementById('installModal');
+      const installBtn = document.getElementById('installBtn');
+      const closeBtn = document.getElementById('closeInstall');
+      
+      // No mostrar si ya está instalada
+      if (localStorage.getItem('pwaInstalled') === 'true') {
+        modal.classList.add('hidden');
+      }
+      
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
       });
-
+      
       installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
           if (outcome === 'accepted') {
             localStorage.setItem('pwaInstalled', 'true');
-            installModal.classList.add('install-prompt-hidden');
+            modal.classList.add('hidden');
           }
           deferredPrompt = null;
-        } else {
-          localStorage.setItem('pwaInstalled', 'true');
-          installModal.classList.add('install-prompt-hidden');
         }
       });
-
+      
       closeBtn.addEventListener('click', () => {
-        installModal.classList.add('install-prompt-hidden');
+        modal.classList.add('hidden');
       });
-
+      
       window.addEventListener('appinstalled', () => {
         localStorage.setItem('pwaInstalled', 'true');
-        installModal.classList.add('install-prompt-hidden');
-        deferredPrompt = null;
-      });
-
-      // ✅ INICIALIZAR AUDIO NATIVO
-      initAudioPlayer();
-      
-      // ✅ CARGAR ESTACIÓN ACTUAL
-      loadStation(0);
-      
-      // ✅ FUNCIONAMIENTO DE BOTONES DE MENÚ
-      initMenus();
-      
-      // ✅ INTENTAR REPRODUCIR DESPUÉS DE PRIMERA INTERACCIÓN
-      document.addEventListener('click', initAutoplayOnce, { once: true });
-      document.addEventListener('touchend', initAutoplayOnce, { once: true });
-    });
-
-    // ✅ REPRODUCTOR DE AUDIO NATIVO
-    function initAudioPlayer() {
-      audioElement = document.createElement('audio');
-      audioElement.className = 'audio-player-native';
-      audioElement.id = 'nativeAudio';
-      audioElement.controls = true;
-      audioElement.preload = 'auto';
-      document.body.appendChild(audioElement);
-      
-      // Eventos del audio
-      audioElement.addEventListener('error', (e) => {
-        console.log('Error de audio:', e);
-        updatePlayButton(false);
-      });
-      
-      audioElement.addEventListener('playing', () => {
-        isPlaying = true;
-        updatePlayButton(true);
-      });
-      
-      audioElement.addEventListener('pause', () => {
-        isPlaying = false;
-        updatePlayButton(false);
-      });
-      
-      audioElement.addEventListener('canplay', () => {
-        console.log('Stream listo para reproducir');
-      });
-    }
-
-    // ✅ INTENTAR REPRODUCIR AUTOMÁTICAMENTE DESPUÉS DE PRIMERA ACCIÓN DEL USUARIO
-    function initAutoplayOnce() {
-      console.log('Primera interacción detectada — stream listo');
-      // El navegador bloquea autoplay sin interacción, pero ya está listo
-    }
-
-    // ✅ CARGAR ESTACIÓN
-    function loadStation(index) {
-      const station = window.streams.stations[index];
-      window.streams.currentStation = index;
-      
-      // Actualizar textos
-      const nameEl = document.querySelector('.station-name');
-      const descEl = document.querySelector('.station-description');
-      const coverEl = document.querySelector('.player-artwork-mini');
-      const mainCoverEl = document.querySelector('.player-cover-image');
-      const artworkEl = document.querySelector('.player-artwork-style img');
-      
-      if (nameEl) nameEl.textContent = station.name;
-      if (descEl) descEl.textContent = station.description || 'En vivo';
-      if (coverEl && station.cover) coverEl.src = station.cover;
-      if (mainCoverEl && station.cover) mainCoverEl.src = station.cover;
-      if (artworkEl && station.cover) artworkEl.src = station.cover;
-      
-      // Cargar stream si hay URL
-      if (audioElement && station.stream_url) {
-        audioElement.src = station.stream_url;
-        audioElement.load();
-      }
-      
-      // Cerrar menú de estaciones
-      closeAllMenus();
-    }
-
-    // ✅ BOTÓN PLAY/PAUSA
-    function togglePlay() {
-      if (!audioElement) return;
-      
-      if (isPlaying) {
-        audioElement.pause();
-      } else {
-        if (audioElement.src) {
-          audioElement.play().catch(err => {
-            console.log('No se pudo reproducir automáticamente:', err);
-            alert('Haz clic una vez más para iniciar la reproducción');
-          });
-        } else {
-          alert('No hay enlace de streaming configurado');
-        }
-      }
-    }
-
-    // ✅ ACTUALIZAR ESTADO DEL BOTÓN
-    function updatePlayButton(playing) {
-      const btn = document.querySelector('.player-button-play');
-      if (!btn) return;
-      
-      isPlaying = playing;
-      
-      if (playing) {
-        btn.classList.add('reproduciendo');
-        btn.innerHTML = `<svg fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
-      } else {
-        btn.classList.remove('reproduciendo');
-        btn.innerHTML = `<svg class="i i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"></path></svg>`;
-      }
-    }
-
-    // ✅ INICIALIZAR MENÚS Y BOTONES
-    function initMenus() {
-      // Botón Play
-      const playBtn = document.querySelector('.player-button-play');
-      if (playBtn) {
-        playBtn.addEventListener('click', togglePlay);
-      }
-      
-      // Botones para abrir paneles laterales
-      const panelButtons = document.querySelectorAll('[data-outside]');
-      panelButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const panelId = btn.getAttribute('data-outside');
-          openPanel(panelId);
-        });
-      });
-      
-      // Botones cerrar en modales
-      const closeBtns = document.querySelectorAll('[data-close]');
-      closeBtns.forEach(btn => {
-        btn.addEventListener('click', closeAllMenus);
-      });
-      
-      // Clic fuera para cerrar
-      const overlay = document.querySelector('.modal-overlay');
-      if (overlay) {
-        overlay.addEventListener('click', closeAllMenus);
-      }
-      
-      // ✅ LLENAR LISTA DE RADIOS EN EL MENÚ
-      populateStationsList();
-    }
-
-    // ✅ ABRIR PANEL LATERAL
-    function openPanel(panelId) {
-      closeAllMenus();
-      const panel = document.getElementById(panelId);
-      const overlay = document.querySelector('.modal-overlay');
-      if (panel) panel.style.transform = 'translateX(0)';
-      if (overlay) overlay.classList.add('active');
-    }
-
-    // ✅ CERRAR TODOS LOS PANELES
-    function closeAllMenus() {
-      const panels = document.querySelectorAll('.offcanvas');
-      panels.forEach(panel => {
-        panel.style.transform = 'translateX(100%)';
-      });
-      const overlay = document.querySelector('.modal-overlay');
-      if (overlay) overlay.classList.remove('active');
-    }
-
-    // ✅ LLENAR LISTA DE RADIOS DISPONIBLES
-    function populateStationsList() {
-      const container = document.querySelector('#offcanvas-stations .offcanvas-content');
-      if (!container) return;
-      
-      container.innerHTML = '';
-      
-      window.streams.stations.forEach((station, index) => {
-        const stationItem = document.createElement('div');
-        stationItem.style.cssText = `
-          padding: 1rem;
-          border-bottom: 1px solid #eee;
-          cursor: pointer;
-          transition: background 0.2s;
-        `;
-        stationItem.innerHTML = `
-          <h4 style="margin:0 0 0.3rem 0; color:#53012e;">${station.name}</h4>
-          <p style="margin:0; font-size:0.9rem; color:#666;">${station.description || ''}</p>
-        `;
-        stationItem.addEventListener('click', () => {
-          loadStation(index);
-        });
-        container.appendChild(stationItem);
+        modal.classList.add('hidden');
       });
     }
   </script>
-</head>
-
-<body class="preload">
-
-  <!-- ✅ VENTANA
+</body>
+</html>
