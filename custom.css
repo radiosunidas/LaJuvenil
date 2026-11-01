@@ -1,0 +1,35 @@
+/*.player {*/
+/*  padding: 1vw;*/
+/*}*/
+
+
+/*.player-cover-image {*/
+/*  ;*/
+/*  animation: bga 60s linear infinite;*/
+/*}*/
+
+/*@keyframes bga {*/
+/*  50% {*/
+/*    transform: scale(2)*/
+/*  }*/
+/*}*/
+
+/*.items-start {*/
+/*  align-items: flex-start;*/
+/*  margin-top: 15px;*/
+/*}*/
+
+.player-button {
+  font-weight: 700;
+}
+
+.player-program {
+
+  background-image: linear-gradient(transparent, rgb(0 0 0 / 98%));
+
+}
+
+.player-program-badge {
+  font-weight: 700;
+
+}
