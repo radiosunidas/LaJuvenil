@@ -1,78 +1,31 @@
 {
-	"name": "Radio Player Pro",
-	"short_name": "Radio Player Pro",
-	"description": "Instala Nuestra Aplicacion y Escuchanos donde Quiera Que Estes.",
-	"icons" : [
-		{
-			"src": "assets/apple-touch-icon.png",
-			"type": "image/png",
-			"sizes": "192x192"
-        },
-        {
-			"src": "assets/apple-touch-icon.png",
-			"type": "image/png",
-			"sizes": "512x512"
-		}
-	],
-	"start_url": "./?mode=pwa",
-	"theme_color": "#7D5BC9",
-	"background_color": "#7D5BC9",
-	"orientation": "portrait",
-	"display": "fullscreen",
-	"display_override": [
-		"fullscreen"
-	],
-	"lang": "ru",
-	"dir": "ltr",
-	"categories": [
-		"music"
-	],
-	"screenshots": [
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "540x720",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "540x720",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "540x720",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "720x540",
-      "form_factor": "wide"
-    },
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "720x540",
-      "form_factor": "wide"
-    },
-    {
-      "src": "assets/redes.png",
-      "type": "image/png",
-      "sizes": "720x540",
-      "form_factor": "wide"
-    }
+  "id": "./",
+  "name": "La JuVeNiL - Te Enciende Bien",
+  "short_name": "La JuVeNiL",
+  "description": "Escucha La JuVeNiL y Radios Unidas en vivo.",
+  "lang": "es-PE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#100810",
+  "theme_color": "#53012e",
+  "categories": [
+    "music",
+    "entertainment"
   ],
-  "related_applications": [
-  {
-    "platform": "play",
-    "url": "https://play.google.com/store/apps/dev?id=5801811195511093744",
-    "id": "livestreamingmundial.casma"
-  }
-]
-
+  "icons": [
+    {
+      "src": "./assets/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
-
-
