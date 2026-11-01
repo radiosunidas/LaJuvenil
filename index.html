@@ -23,14 +23,13 @@
   <link rel="stylesheet" href="css/main.min.css">
   <link rel="stylesheet" href="custom.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
-  <script src="js/main.js" defer></script>
   
   <!-- ✅ Manifest -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#53012e">
 
   <style>
-    /* ✅ VENTANA DE INSTALACIÓN — SIEMPRE AL CARGAR HASTA QUE SE INSTALE */
+    /* ✅ VENTANA DE INSTALACIÓN */
     .install-prompt-modal {
       position: fixed;
       top: 0;
@@ -102,7 +101,7 @@
       background: #e0e0e0;
     }
 
-    /* ✅ Botón Play — SIN CAMBIOS */
+    /* ✅ Botón Play */
     .player-button-play {
       width: 72px !important;
       height: 72px !important;
@@ -115,6 +114,8 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
+      border: none;
+      cursor: pointer;
     }
     .player-button-play svg {
       width: 32px !important;
@@ -138,27 +139,49 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+
+    /* ✅ Audio nativo oculto */
+    .audio-player-native {
+      display: none;
+    }
+
+    /* ✅ Corrección de imágenes */
+    img.player-cover-image,
+    img.player-artwork-mini,
+    img.player-artwork-style img {
+      background: #53012e;
+      object-fit: cover;
+    }
+
+    /* ✅ Overlay para cerrar modales */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      display: none;
+    }
+    .modal-overlay.active {
+      display: block;
+    }
   </style>
 
   <script>
     window.streams = {
       timeRefresh: 5000,
+      currentStation: 0,
       stations: [
-       {
-  name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-  hash: "La JuVeNiL",
-  description: "",
-  logo: "assets/marca_model.png",
-  album: "assets/logo_model.jpg",
-  cover: "assets/logo_model.jpg",
-  api: "https://stream2.eistreaming.com/cp/get_info.php?p=8004",
-  stream_url: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
-  server: "icecast",
-  program: {
-    time: "",
-    name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-    description: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-  },
+        {
+          name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
+          hash: "La JuVeNiL",
+          description: "Escúchanos en vivo",
+          logo: "assets/marca_model.png",
+          album: "assets/logo_model.jpg",
+          cover: "assets/logo_model.jpg",
+          stream_url: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
           social: {
             facebook: "https://www.facebook.com/",
             youtube: "https://www.youtube.com/",
@@ -173,14 +196,7 @@
           logo: "assets/marca.png",
           album: "assets/radiosunidas.jpg",
           cover: "assets/radiosunidas.jpg",
-          api: "PON_TU_ENLACE_API_AQUI",
-          stream_url: "https://stream.zeno.fm/hdueixh3dwquv",
-          server:"spotify",
-          program: {
-            time: "",
-            name: "RADIOS UNIDAS",
-            description: "Transmitiendo para todo el Perú y el mundo",
-          },
+          stream_url: "",
           social: {
             facebook: "https://www.facebook.com/RadiosUnidas",
             youtube: "https://www.youtube.com/@RadiosUnidas",
@@ -192,27 +208,24 @@
     };
 
     let deferredPrompt;
+    let audioElement = null;
+    let isPlaying = false;
 
     document.addEventListener('DOMContentLoaded', () => {
+      // ✅ VENTANA DE INSTALACIÓN
       const installModal = document.getElementById('installPromptModal');
       const installBtn = document.getElementById('installBtn');
       const closeBtn = document.getElementById('closeInstallBtn');
 
-      // ✅ Verificar si YA está instalada — si sí, OCULTAR todo
       if (localStorage.getItem('pwaInstalled') === 'true') {
         installModal.classList.add('install-prompt-hidden');
-      } else {
-        // ✅ Mostrar ventana automáticamente al cargar
-        installModal.classList.remove('install-prompt-hidden');
       }
 
-      // ✅ Detectar evento de instalación del navegador
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
       });
 
-      // ✅ BOTÓN: INSTALAR
       installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           deferredPrompt.prompt();
@@ -223,146 +236,213 @@
           }
           deferredPrompt = null;
         } else {
-          // Si el navegador ya la instaló por su cuenta
           localStorage.setItem('pwaInstalled', 'true');
           installModal.classList.add('install-prompt-hidden');
         }
       });
 
-      // ✅ BOTÓN: CERRAR — Vuelve a aparecer la próxima vez
       closeBtn.addEventListener('click', () => {
         installModal.classList.add('install-prompt-hidden');
-        // NO guardamos nada — así vuelve a salir al recargar
       });
 
-      // ✅ Si el usuario ya instaló la app desde el navegador
       window.addEventListener('appinstalled', () => {
         localStorage.setItem('pwaInstalled', 'true');
         installModal.classList.add('install-prompt-hidden');
         deferredPrompt = null;
       });
 
-      const btnPlay = document.querySelector('.player-button-play');
-      if(btnPlay){
-        btnPlay.addEventListener('click', () => {
-          btnPlay.classList.toggle('reproduciendo');
-        });
-      }
+      // ✅ INICIALIZAR AUDIO NATIVO
+      initAudioPlayer();
+      
+      // ✅ CARGAR ESTACIÓN ACTUAL
+      loadStation(0);
+      
+      // ✅ FUNCIONAMIENTO DE BOTONES DE MENÚ
+      initMenus();
+      
+      // ✅ INTENTAR REPRODUCIR DESPUÉS DE PRIMERA INTERACCIÓN
+      document.addEventListener('click', initAutoplayOnce, { once: true });
+      document.addEventListener('touchend', initAutoplayOnce, { once: true });
     });
+
+    // ✅ REPRODUCTOR DE AUDIO NATIVO
+    function initAudioPlayer() {
+      audioElement = document.createElement('audio');
+      audioElement.className = 'audio-player-native';
+      audioElement.id = 'nativeAudio';
+      audioElement.controls = true;
+      audioElement.preload = 'auto';
+      document.body.appendChild(audioElement);
+      
+      // Eventos del audio
+      audioElement.addEventListener('error', (e) => {
+        console.log('Error de audio:', e);
+        updatePlayButton(false);
+      });
+      
+      audioElement.addEventListener('playing', () => {
+        isPlaying = true;
+        updatePlayButton(true);
+      });
+      
+      audioElement.addEventListener('pause', () => {
+        isPlaying = false;
+        updatePlayButton(false);
+      });
+      
+      audioElement.addEventListener('canplay', () => {
+        console.log('Stream listo para reproducir');
+      });
+    }
+
+    // ✅ INTENTAR REPRODUCIR AUTOMÁTICAMENTE DESPUÉS DE PRIMERA ACCIÓN DEL USUARIO
+    function initAutoplayOnce() {
+      console.log('Primera interacción detectada — stream listo');
+      // El navegador bloquea autoplay sin interacción, pero ya está listo
+    }
+
+    // ✅ CARGAR ESTACIÓN
+    function loadStation(index) {
+      const station = window.streams.stations[index];
+      window.streams.currentStation = index;
+      
+      // Actualizar textos
+      const nameEl = document.querySelector('.station-name');
+      const descEl = document.querySelector('.station-description');
+      const coverEl = document.querySelector('.player-artwork-mini');
+      const mainCoverEl = document.querySelector('.player-cover-image');
+      const artworkEl = document.querySelector('.player-artwork-style img');
+      
+      if (nameEl) nameEl.textContent = station.name;
+      if (descEl) descEl.textContent = station.description || 'En vivo';
+      if (coverEl && station.cover) coverEl.src = station.cover;
+      if (mainCoverEl && station.cover) mainCoverEl.src = station.cover;
+      if (artworkEl && station.cover) artworkEl.src = station.cover;
+      
+      // Cargar stream si hay URL
+      if (audioElement && station.stream_url) {
+        audioElement.src = station.stream_url;
+        audioElement.load();
+      }
+      
+      // Cerrar menú de estaciones
+      closeAllMenus();
+    }
+
+    // ✅ BOTÓN PLAY/PAUSA
+    function togglePlay() {
+      if (!audioElement) return;
+      
+      if (isPlaying) {
+        audioElement.pause();
+      } else {
+        if (audioElement.src) {
+          audioElement.play().catch(err => {
+            console.log('No se pudo reproducir automáticamente:', err);
+            alert('Haz clic una vez más para iniciar la reproducción');
+          });
+        } else {
+          alert('No hay enlace de streaming configurado');
+        }
+      }
+    }
+
+    // ✅ ACTUALIZAR ESTADO DEL BOTÓN
+    function updatePlayButton(playing) {
+      const btn = document.querySelector('.player-button-play');
+      if (!btn) return;
+      
+      isPlaying = playing;
+      
+      if (playing) {
+        btn.classList.add('reproduciendo');
+        btn.innerHTML = `<svg fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>`;
+      } else {
+        btn.classList.remove('reproduciendo');
+        btn.innerHTML = `<svg class="i i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"></path></svg>`;
+      }
+    }
+
+    // ✅ INICIALIZAR MENÚS Y BOTONES
+    function initMenus() {
+      // Botón Play
+      const playBtn = document.querySelector('.player-button-play');
+      if (playBtn) {
+        playBtn.addEventListener('click', togglePlay);
+      }
+      
+      // Botones para abrir paneles laterales
+      const panelButtons = document.querySelectorAll('[data-outside]');
+      panelButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const panelId = btn.getAttribute('data-outside');
+          openPanel(panelId);
+        });
+      });
+      
+      // Botones cerrar en modales
+      const closeBtns = document.querySelectorAll('[data-close]');
+      closeBtns.forEach(btn => {
+        btn.addEventListener('click', closeAllMenus);
+      });
+      
+      // Clic fuera para cerrar
+      const overlay = document.querySelector('.modal-overlay');
+      if (overlay) {
+        overlay.addEventListener('click', closeAllMenus);
+      }
+      
+      // ✅ LLENAR LISTA DE RADIOS EN EL MENÚ
+      populateStationsList();
+    }
+
+    // ✅ ABRIR PANEL LATERAL
+    function openPanel(panelId) {
+      closeAllMenus();
+      const panel = document.getElementById(panelId);
+      const overlay = document.querySelector('.modal-overlay');
+      if (panel) panel.style.transform = 'translateX(0)';
+      if (overlay) overlay.classList.add('active');
+    }
+
+    // ✅ CERRAR TODOS LOS PANELES
+    function closeAllMenus() {
+      const panels = document.querySelectorAll('.offcanvas');
+      panels.forEach(panel => {
+        panel.style.transform = 'translateX(100%)';
+      });
+      const overlay = document.querySelector('.modal-overlay');
+      if (overlay) overlay.classList.remove('active');
+    }
+
+    // ✅ LLENAR LISTA DE RADIOS DISPONIBLES
+    function populateStationsList() {
+      const container = document.querySelector('#offcanvas-stations .offcanvas-content');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      window.streams.stations.forEach((station, index) => {
+        const stationItem = document.createElement('div');
+        stationItem.style.cssText = `
+          padding: 1rem;
+          border-bottom: 1px solid #eee;
+          cursor: pointer;
+          transition: background 0.2s;
+        `;
+        stationItem.innerHTML = `
+          <h4 style="margin:0 0 0.3rem 0; color:#53012e;">${station.name}</h4>
+          <p style="margin:0; font-size:0.9rem; color:#666;">${station.description || ''}</p>
+        `;
+        stationItem.addEventListener('click', () => {
+          loadStation(index);
+        });
+        container.appendChild(stationItem);
+      });
+    }
   </script>
 </head>
 
 <body class="preload">
 
-  <!-- ✅ VENTANA DE INSTALACIÓN — SIEMPRE AL CARGAR HASTA QUE SE INSTALE -->
-  <div class="install-prompt-modal" id="installPromptModal">
-    <div class="install-prompt-content">
-      <h2>📻 Instalar La JuVeNiL</h2>
-      <p>¡Disfruta de nuestra radio sin necesidad de navegador! Instálala en tu dispositivo y escúchanos con un solo clic, las 24 horas del día.</p>
-      <div class="install-buttons">
-        <button class="install-btn install" id="installBtn">📥 Instalar ahora</button>
-        <button class="install-btn close" id="closeInstallBtn">✕ Más tarde</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="app">
-    <img src="assets/logo_model.jpg" alt="cover" class="player-cover-image song-cover" height="100%" width="100%">
-
-    <header class="header">
-      <div class="header-wrapper flex justify-between">
-        <a class="header-logo" href="#site">
-          <img class="header-logo-img" src="assets/marca.png" alt="logo">
-        </a>
-        <div class="toggle-options flex items-start">
-          <button class="btn l:none" data-outside="offcanvas-history">
-            <svg class="i i-music" viewBox="0 0 24 24"><path d="M22 16V2L9 5v13"></path><circle cx="5" cy="18" r="4"></circle><circle cx="18" cy="16" r="4"></circle></svg>
-          </button>
-          <button class="btn l:none" data-outside="modal-lyrics">
-            <svg class="i i-list-music" viewBox="0 0 24 24"><path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path><circle cx="12" cy="18" r="4"></circle></svg>
-          </button>
-          <button class="btn l:none" data-outside="offcanvas-stations">
-            <svg class="i i-angles-down" viewBox="0 0 24 24"><path d="m6 13 6 6 6-6M6 5l6 6 6-6"></path></svg>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <div class="player-artwork player-artwork-style">
-      <img alt="artwork" height="600" src="assets/logo_model.jpg" width="600">
-      <div class="player-program"></div>
-    </div>
-
-    <div class="player song-now flex column">
-      <div class="player-wrapper">
-        <div class="player-cover flex items-center justify-center g-2 items-center">
-          <div class="player-left flex items-center">
-            <div class="player-artwork-style relative">
-              <img class="player-artwork-mini" alt="artwork" height="600" src="assets/logo_model.jpg" width="600">
-            </div>
-            <div class="player-cover-title uppercase fw-700 flex column">
-              <span class="color-title fw-700 song-name song-title station-name">Cargando...</span>
-              <span class="color-title fs-8 song-artist station-description truncate">Esperando señal</span>
-            </div>
-          </div>
-
-          <div class="player-controller" style="justify-content:center; gap:18px;">
-            <button class="player-button player-button-backward-step">
-              <svg class="i i-backward-step" viewBox="0 0 24 24"><path d="M6 5v14M18 4v16L8 12Z"></path></svg>
-            </button>
-            <button aria-label="Play/Pause" class="player-button player-button-play flex-none">
-              <svg class="i i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"></path></svg>
-            </button>
-            <button class="player-button player-button-forward-step">
-              <svg class="i i-forward-step" viewBox="0 0 24 24"><path d="M18 5v14M6 4v16l10-8Z"></path></svg>
-            </button>
-          </div>
-
-          <div class="player-right flex items-center">
-            <button class="player-button player-button-history" data-outside="offcanvas-history">
-              <svg class="i i-music" viewBox="0 0 24 24"><path d="M22 16V2L9 5v13"></path><circle cx="5" cy="18" r="4"></circle><circle cx="18" cy="16" r="4"></circle></svg>
-              Historia
-            </button>
-            <div class="player-button player-button-volume">
-              <button class="player-button player-button-volume-toggle" data-outside="player-volume">
-                <svg class="i i-volume-high" viewBox="0 0 24 24"><path d="M6 9H2v6h4l5 4V5Zm9 7a5 5 0 0 0 0-8m3 12a10 10 0 0 0 0-16"></path></svg>
-                Volumen
-              </button>
-              <div class="dropdown" id="player-volume">
-                <div class="player-range-wrapper">
-                  <input aria-label="Volumen" class="player-volume" max="100" min="0" name="vol" type="range" value="100">
-                </div>
-              </div>
-            </div>
-            <button class="player-button player-button-lyrics" data-outside="modal-lyrics">
-              <svg class="i i-list-music" viewBox="0 0 24 24"><path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path><circle cx="12" cy="18" r="4"></circle></svg>
-              Letras
-            </button>
-            <button class="player-button-alt player-button-stations" data-outside="offcanvas-stations">
-              <svg class="i i-angles-up" viewBox="0 0 24 24"><path d="m6 19 6-6 6 6M6 11l6-6 6 6"></path></svg>
-              Sonando...
-            </button>
-          </div>
-        </div>
-      </div> 
-    </div>
-
-    <div class="visualizer" data-bars="80"></div>
-
-    <aside class="offcanvas scrollbar" id="offcanvas-history">
-      <div class="offcanvas-content"><div class="history flex g-0.5 fs-7" id="history"></div></div>
-    </aside>
-    <aside class="offcanvas scrollbar" id="offcanvas-stations">
-      <div class="offcanvas-header"><h3>Elige tu Radio</h3></div>
-      <div class="offcanvas-content"></div>
-    </aside>
-    <div class="modal" id="modal-lyrics">
-      <div class="modal-content">
-        <div class="modal-title flex justify-between"><h2>Letra</h2><button data-close>&times;</button></div>
-        <div class="modal-body" id="lyrics"></div>
-      </div>
-    </div>
-    <div class="modal-overlay"></div>
-  </div>
-</body>
-</html>
+  <!-- ✅ VENTANA
