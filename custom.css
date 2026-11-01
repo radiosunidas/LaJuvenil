@@ -1,105 +1,35 @@
+/*.player {*/
+/*  padding: 1vw;*/
+/*}*/
 
-/* =====================================
-   RADIO LA JUVENIL
-   VENTANA DE INSTALACION PWA
-===================================== */
 
-.install-window {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, .90);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+/*.player-cover-image {*/
+/*  ;*/
+/*  animation: bga 60s linear infinite;*/
+/*}*/
 
-.install-window[hidden] {
-  display: none !important;
-}
+/*@keyframes bga {*/
+/*  50% {*/
+/*    transform: scale(2)*/
+/*  }*/
+/*}*/
 
-.install-box {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  padding: 30px 24px;
-  border-radius: 20px;
-  text-align: center;
-  color: #fff;
-  background: #151515;
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 15px 50px rgba(0,0,0,.6);
-  animation: install-appear .35s ease;
-}
+/*.items-start {*/
+/*  align-items: flex-start;*/
+/*  margin-top: 15px;*/
+/*}*/
 
-.install-box img {
-  width: 105px;
-  height: 105px;
-  object-fit: contain;
-  border-radius: 18px;
-  margin-bottom: 15px;
-}
-
-.install-box h2 {
-  font-size: 22px;
+.player-button {
   font-weight: 700;
-  margin: 10px 0;
-  font-family: Montserrat, sans-serif;
 }
 
-.install-box p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #ccc;
-  margin-bottom: 22px;
+.player-program {
+
+  background-image: linear-gradient(transparent, rgb(0 0 0 / 98%));
+
 }
 
-.install-box button#install-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: #e50914;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-}
+.player-program-badge {
+  font-weight: 700;
 
-.install-box button#install-button:active {
-  transform: scale(.97);
-}
-
-.install-box span {
-  display: block;
-  margin-top: 18px;
-  font-size: 12px;
-  color: #aaa;
-}
-
-.install-close {
-  position: absolute;
-  top: 8px;
-  right: 14px;
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-@keyframes install-appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
