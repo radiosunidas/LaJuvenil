@@ -6,7 +6,7 @@
   <title>La JuVeNiL Te Enciende Bien...!</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <meta name="theme-color" content="#53012e">
+  <meta name="theme-color" content="#1E90FF">
 
   <meta property="og:image" content="assets/redes.png"/>
   <meta property="og:image:type" content="image/png"/>
@@ -25,7 +25,7 @@
   <link rel="manifest" href="manifest.json">
 
   <style>
-    /* ✅ VENTANA DE INSTALACIÓN — NO TOCA TU DISEÑO */
+    /* ✅ VENTANA DE INSTALACIÓN */
     .install-prompt-modal {
       position: fixed;
       top: 0;
@@ -52,7 +52,7 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
     .install-prompt-content h2 {
-      color: #53012e;
+      color: #1E90FF;
       margin-bottom: 0.8rem;
       font-size: 1.3rem;
     }
@@ -75,11 +75,11 @@
       transition: all 0.25s ease;
     }
     .install-btn.install {
-      background: #53012e;
+      background: #1E90FF;
       color: #fff;
     }
     .install-btn.install:hover {
-      background: #7a0443;
+      background: #187bcd;
     }
     .install-btn.close {
       background: #f0f0f0;
@@ -95,8 +95,8 @@
       height: 72px !important;
       border-radius: 50% !important;
       background: #fff !important;
-      color: #53012e !important;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5) !important;
+      color: #1E90FF !important;
+      box-shadow: 0 0 15px rgba(30,144,255,0.4) !important;
       transition: all 0.2s ease !important;
       position: relative !important;
       display: flex !important;
@@ -119,8 +119,8 @@
       inset: -5px;
       border-radius: 50%;
       border: 2px solid transparent;
-      border-top-color: #ffc107;
-      border-right-color: #ffc107;
+      border-top-color: #1E90FF;
+      border-right-color: #1E90FF;
       animation: bordeGirando 1s linear infinite;
     }
     @keyframes bordeGirando {
@@ -130,6 +130,23 @@
 
     /* ✅ AUDIO OCULTO */
     #nativeAudio { display: none; }
+
+    /* ✅ ECUALIZADOR */
+    .visualizer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 80px;
+      gap: 2px;
+      padding: 10px 0;
+    }
+    .visualizer-bar {
+      min-height: 4px;
+      width: 3px;
+      border-radius: 2px 2px 0 0;
+      background: linear-gradient(to top, #1E90FF, #00BFFF, #fff);
+      transition: height 0.12s ease-out;
+    }
   </style>
 
   <script>
@@ -167,12 +184,12 @@
           album: "assets/radiosunidas.jpg",
           cover: "assets/radiosunidas.jpg",
           api: "",
-          stream_url: "",
+          stream_url: "", // ✅ PON AQUÍ TU ENLACE DE STREAM SI LO TIENES
           server: "",
           program: {
             time: "",
             name: "RADIOS UNIDAS",
-            description: "Transmitiendo para todo el Perú y el mundo",
+            description: "Próximamente disponible",
           },
           social: {
             facebook: "https://www.facebook.com/RadiosUnidas",
@@ -187,14 +204,18 @@
     let audioElement = null;
     let isPlaying = false;
     let deferredPrompt;
+    let audioContext = null;
+    let analyser = null;
+    let animationFrameId = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       initAudio();
       initInstallPrompt();
       initPlayButton();
+      initVisualizer();
     });
 
-    // ✅ SISTEMA DE AUDIO FUNCIONAL
+    // ✅ SISTEMA DE AUDIO
     function initAudio() {
       audioElement = document.createElement('audio');
       audioElement.id = 'nativeAudio';
@@ -219,12 +240,14 @@
         isPlaying = false;
         updatePlayButtonUI(false);
         updateStationDesc("Haz clic para reproducir");
+        detenerVisualizacion();
       });
 
       audio.addEventListener('error', () => {
         isPlaying = false;
         updatePlayButtonUI(false);
         updateStationDesc("❌ Error — Intenta de nuevo");
+        detenerVisualizacion();
       });
 
       audio.addEventListener('canplay', () => {
@@ -264,6 +287,73 @@
     function updateStationDesc(text) {
       const desc = document.querySelector('.station-description');
       if (desc) desc.textContent = text;
+    }
+
+    // ✅ ECUALIZADOR — SOLO SE MUEVE CUANDO SUENA
+    function initVisualizer() {
+      const visualizer = document.querySelector('.visualizer');
+      if (!visualizer) return;
+
+      let bars = visualizer.querySelectorAll('.visualizer-bar');
+      if (bars.length === 0) {
+        const barCount = parseInt(visualizer.getAttribute('data-bars') || '32');
+        for (let i = 0; i < barCount; i++) {
+          const bar = document.createElement('div');
+          bar.className = 'visualizer-bar';
+          visualizer.appendChild(bar);
+        }
+        bars = visualizer.querySelectorAll('.visualizer-bar');
+      }
+
+      // Iniciar todas bajas
+      bars.forEach(bar => bar.style.height = '4px');
+
+      const audio = document.getElementById('nativeAudio');
+      if (audio) {
+        audio.addEventListener('playing', iniciarVisualizacion);
+        audio.addEventListener('pause', detenerVisualizacion);
+        audio.addEventListener('ended', detenerVisualizacion);
+        audio.addEventListener('error', detenerVisualizacion);
+      }
+    }
+
+    function detenerVisualizacion() {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      const bars = document.querySelectorAll('.visualizer-bar');
+      bars.forEach(bar => bar.style.height = '4px');
+    }
+
+    function iniciarVisualizacion() {
+      const audio = document.getElementById('nativeAudio');
+      const visualizer = document.querySelector('.visualizer');
+      if (!audio || !visualizer) return;
+
+      const bars = visualizer.querySelectorAll('.visualizer-bar');
+
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 64;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        if (audioContext.state === 'suspended') audioContext.resume();
+        
+        const source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+        
+        function animate() {
+          animationFrameId = requestAnimationFrame(animate);
+          analyser.getByteFrequencyData(dataArray);
+          bars.forEach((bar, i) => {
+            const valor = dataArray[i] || 0;
+            const altura = Math.max(4, valor / 2.5);
+            bar.style.height = altura + 'px';
+          });
+        }
+        animate();
+      }
     }
 
     // ✅ VENTANA DE INSTALACIÓN
@@ -356,54 +446,4 @@
       <div class="player-wrapper">
         <div class="player-cover flex items-center justify-center g-2 items-center">
           <div class="player-left flex items-center">
-            <div class="player-artwork-style relative">
-              <img class="player-artwork-mini" alt="artwork" height="600" src="assets/logo_model.jpg" width="600">
-            </div>
-            <div class="player-cover-title uppercase fw-700 flex column">
-              <span class="color-title fw-700 song-name song-title station-name">Cargando...</span>
-              <span class="color-title fs-8 song-artist station-description truncate">Esperando señal</span>
-            </div>
-          </div>
-
-          <div class="player-controller" style="justify-content:center; gap:18px;">
-            <button class="player-button player-button-backward-step">
-              <svg class="i i-backward-step" viewBox="0 0 24 24"><path d="M6 5v14M18 4v16L8 12Z"></path></svg>
-            </button>
-            <button aria-label="Play/Pause" class="player-button player-button-play flex-none">
-              <svg class="i i-play" viewBox="0 0 24 24"><path d="m7 3 14 9-14 9z"></path></svg>
-            </button>
-            <button class="player-button player-button-forward-step">
-              <svg class="i i-forward-step" viewBox="0 0 24 24"><path d="M18 5v14M6 4v16l10-8Z"></path></svg>
-            </button>
-          </div>
-
-          <div class="player-right flex items-center">
-            <button class="player-button player-button-history" data-outside="offcanvas-history">
-              <svg class="i i-music" viewBox="0 0 24 24"><path d="M22 16V2L9 5v13"></path><circle cx="5" cy="18" r="4"></circle><circle cx="18" cy="16" r="4"></circle></svg>
-              Historia
-            </button>
-            <div class="player-button player-button-volume">
-              <button class="player-button player-button-volume-toggle" data-outside="player-volume">
-                <svg class="i i-volume-high" viewBox="0 0 24 24"><path d="M6 9H2v6h4l5 4V5Zm9 7a5 5 0 0 0 0-8m3 12a10 10 0 0 0 0-16"></path></svg>
-                Volumen
-              </button>
-              <div class="dropdown" id="player-volume">
-                <div class="player-range-wrapper">
-                  <input aria-label="Volumen" class="player-volume" max="100" min="0" name="vol" type="range" value="100">
-                </div>
-              </div>
-            </div>
-            <button class="player-button player-button-lyrics" data-outside="modal-lyrics">
-              <svg class="i i-list-music" viewBox="0 0 24 24"><path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path><circle cx="12" cy="18" r="4"></circle></svg>
-              Letras
-            </button>
-            <button class="player-button-alt player-button-stations" data-outside="offcanvas-stations">
-              <svg class="i i-angles-up" viewBox="0 0 24 24"><path d="m6 19 6-6 6 6M6 11l6-6 6 6"></path></svg>
-              Sonando...
-            </button>
-          </div>
-        </div>
-      </div> 
-    </div>
-
-    <div class="visualizer" data-bars="80"></div>
+            <div class="player-artwork
