@@ -12,25 +12,26 @@
   
   <meta name="theme-color" content="#53012e">
 
-  <meta property="og:image" content="assets/redes.png"/>
+  <meta property="og:image" content="./assets/redes.png"/>
   <meta property="og:image:type" content="image/png"/>
   <meta property="og:image:width" content="600"/>
   <meta property="og:image:height" content="360"/>
   <meta property="og:title" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
   <meta property="og:description" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
-  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon"/>
+  <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon"/>
 
-  <link rel="stylesheet" href="css/main.min.css">
-  <link rel="stylesheet" href="custom.css">
+  <!-- Rutas relativas corregidas con ./ para GitHub Pages -->
+  <link rel="stylesheet" href="./css/main.min.css">
+  <link rel="stylesheet" href="./custom.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="./js/main.js" defer></script>
   
   <!-- ✅ Manifest -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#53012e">
 
   <style>
-    /* ✅ VENTANA DE INSTALACIÓN */
+    /* ✅ VENTANA DE INSTALACIÓN CON BOTÓN CELESTE */
     .install-prompt-modal {
       position: fixed;
       top: 0;
@@ -86,12 +87,13 @@
       transition: all 0.25s ease;
       font-size: 0.95rem;
     }
+    /* Botón de instalación en color CELESTE */
     .install-btn.install {
-      background: #53012e;
+      background: #0ea5e9; 
       color: #fff;
     }
     .install-btn.install:hover {
-      background: #7a0443;
+      background: #0284c7;
       transform: translateY(-2px);
     }
     .install-btn.close {
@@ -147,13 +149,13 @@
         {
           name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
           hash: "LaJuVeNiL",
-          description: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-          logo: "assets/marca_model.png",
-          album: "assets/logo_model.jpg",
-          cover: "assets/logo_model.jpg",
-          api: "", 
+          description: "",
+          logo: "./assets/marca_model.png",
+          album: "./assets/logo_model.jpg",
+          cover: "./assets/logo_model.jpg",
+          api: "",
           stream_url: "https://stream.zeno.fm/hdueixh3dwquv",
-          server: "zeno",
+          server: "spotify",
           program: {
             time: "",
             name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
@@ -170,12 +172,12 @@
           name: "RADIOS UNIDAS",
           hash: "radiosunidas",
           description: "La señal que une a todos",
-          logo: "assets/marca.png",
-          album: "assets/radiosunidas.jpg",
-          cover: "assets/radiosunidas.jpg",
+          logo: "./assets/marca.png",
+          album: "./assets/radiosunidas.jpg",
+          cover: "./assets/radiosunidas.jpg",
           api: "",
           stream_url: "https://stream.zeno.fm/hdueixh3dwquv",
-          server: "zeno",
+          server: "spotify",
           program: {
             time: "",
             name: "RADIOS UNIDAS",
@@ -264,12 +266,12 @@
   </div>
 
   <div class="app">
-    <img src="assets/logo_model.jpg" alt="cover" class="player-cover-image song-cover" height="100%" width="100%">
+    <img src="./assets/logo_model.jpg" alt="cover" class="player-cover-image song-cover" height="100%" width="100%">
 
     <header class="header">
       <div class="header-wrapper flex justify-between">
         <a class="header-logo" href="#site">
-          <img class="header-logo-img" src="assets/marca.png" alt="logo">
+          <img class="header-logo-img" src="./assets/marca.png" alt="logo">
         </a>
         <div class="toggle-options flex items-start">
           <button class="btn l:none" data-outside="offcanvas-history">
@@ -286,7 +288,7 @@
     </header>
 
     <div class="player-artwork player-artwork-style">
-      <img alt="artwork" height="600" src="assets/logo_model.jpg" width="600">
+      <img alt="artwork" height="600" src="./assets/logo_model.jpg" width="600">
       <div class="player-program"></div>
     </div>
 
@@ -295,7 +297,7 @@
         <div class="player-cover flex items-center justify-center g-2 items-center">
           <div class="player-left flex items-center">
             <div class="player-artwork-style relative">
-              <img class="player-artwork-mini" alt="artwork" height="600" src="assets/logo_model.jpg" width="600">
+              <img class="player-artwork-mini" alt="artwork" height="600" src="./assets/logo_model.jpg" width="600">
             </div>
             <div class="player-cover-title uppercase fw-700 flex column">
               <span class="color-title fw-700 song-name song-title station-name">Cargando...</span>
