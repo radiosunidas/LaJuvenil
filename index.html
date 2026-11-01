@@ -1,34 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
-  <title>La JuVeNiL Te Enciende Bien...!</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/akira-expanded" rel="stylesheet">
-  
-  <meta name="theme-color" content="#53012e">
-  <meta property="og:image" content="assets/redes.png"/>
-  <meta property="og:image:type" content="image/png"/>
-  <meta property="og:image:width" content="600"/>
-  <meta property="og:image:height" content="360"/>
-  <meta property="og:title" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
-  <meta property="og:description" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
-  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon"/>
-
-  <!-- ✅ TUS ARCHIVOS ORIGINALES — NO LOS TOQUES -->
-  <link rel="stylesheet" href="css/main.min.css">
-  <link rel="stylesheet" href="custom.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
-  <script src="js/main.js" defer></script>
-  
-  <link rel="manifest" href="manifest.json">
-
+﻿<link rel="manifest" href="manifest.json">
   <style>
-    /* ✅ VENTANA DE INSTALACIÓN — NO INTERFIERE CON TU DISEÑO */
+    /* Ventana de instalación */
     .install-prompt-modal {
       position: fixed;
       top: 0;
@@ -41,319 +13,177 @@
       justify-content: center;
       z-index: 99999;
     }
-    .install-prompt-hidden {
-      display: none !important;
-    }
+    .install-prompt-hidden { display: none !important; }
     .install-prompt-content {
-      background: #fff;
-      color: #333;
-      padding: 2rem;
-      border-radius: 16px;
-      max-width: 420px;
-      width: 90%;
-      text-align: center;
+      background: #fff; color: #333; padding: 2rem; border-radius: 16px;
+      max-width: 420px; width: 90%; text-align: center;
       box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
-    .install-prompt-content h2 {
-      color: #53012e;
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-    }
-    .install-buttons {
-      display: flex;
-      gap: 0.8rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-    .install-btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.25s ease;
-    }
+    .install-prompt-content h2 { color: #53012e; margin-bottom: 0.8rem; }
+    .install-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .install-btn { padding: 0.75rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
     .install-btn.install { background: #53012e; color: #fff; }
-    .install-btn.install:hover { background: #7a0443; }
     .install-btn.close { background: #f0f0f0; color: #444; }
-    .install-btn.close:hover { background: #e0e0e0; }
-
-    /* ✅ AUDIO OCULTO — NO VISIBLE, SOLO FUNCIONAL */
+    
+    /* Audio oculto */
     #nativeAudio { display: none; }
-
-    /* ✅ ESTADO DEL BOTÓN PLAY — VISIBILIDAD CLARA */
+    
+    /* Estado visual del botón Play */
     .player-button-play.playing-state {
       box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.4), 0 0 25px rgba(255, 193, 7, 0.6) !important;
     }
     .player-button-play.playing-state::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      border-top-color: #ffc107;
-      border-right-color: #ffc107;
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid transparent; border-top-color: #ffc107; border-right-color: #ffc107;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* ✅ TEXTO DE ESTADO */
-    .stream-status {
-      font-size: 0.85rem;
-      opacity: 0.7;
-      margin-top: 0.3rem;
-      height: 1.2rem;
-      transition: all 0.3s ease;
-    }
-    .stream-status.live {
-      color: #4ade80;
-      opacity: 1;
-    }
-    .stream-status.connecting {
-      color: #fbbf24;
-      opacity: 1;
-    }
-    .stream-status.error {
-      color: #f87171;
-      opacity: 1;
-    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    
+    /* Estado del stream */
+    .stream-status { font-size: 0.85rem; opacity: 0.7; margin-top: 0.3rem; min-height: 1.2rem; }
+    .stream-status.live { color: #4ade80; opacity: 1; }
+    .stream-status.connecting { color: #fbbf24; opacity: 1; }
+    .stream-status.error { color: #f87171; opacity: 1; }
   </style>
-
   <script>
-    // ✅ MANTENEMOS TU ESTRUCTURA ORIGINAL DE DATOS
-    window.streams = {
-      timeRefresh: 5000,
-      currentStation: 0,
-      isPlaying: false,
-      audioElement: null,
-      stations: [
-        {
-          name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
-          hash: "La-JuVeNiL",
-          description: "Conéctate y disfruta 📻",
-          logo: "assets/marca_model.png",
-          album: "assets/logo_model.jpg",
-          cover: "assets/logo_model.jpg",
-          stream_url: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
-          social: {
-            facebook: "https://www.facebook.com/",
-            youtube: "https://www.youtube.com/",
-            instagram: "https://www.instagram.com/",
-            tiktok: "https://www.tiktok.com/",
-          }
-        },
-        {
-          name: "RADIOS UNIDAS",
-          hash: "radios-unidas",
-          description: "La señal que une a todos",
-          logo: "assets/marca.png",
-          album: "assets/radiosunidas.jpg",
-          cover: "assets/radiosunidas.jpg",
-          stream_url: "",
-          social: {
-            facebook: "https://www.facebook.com/RadiosUnidas",
-            youtube: "https://www.youtube.com/@RadiosUnidas",
-            instagram: "https://www.instagram.com/radiosunidas",
-            tiktok: "https://www.tiktok.com/@radiosunidas",
-          }
-        }
-      ]
-    };
-
+    let audioElement = null;
+    let isPlaying = false;
     let deferredPrompt;
-
+    
     document.addEventListener('DOMContentLoaded', () => {
-      initAudioSystem();
+      initAudio();
       initInstallPrompt();
-      initCustomControls();
-      loadStationData(0);
+      
+      // Reemplaza el enlace del stream en tu objeto existente
+      if (window.streams && window.streams.stations) {
+        window.streams.stations[0].stream_url = "https://stream.zeno.fm/hdueixh3dwquv.mp3";
+      }
     });
-
-    // ✅ SISTEMA DE AUDIO — FUNCIONAL SIN TOCAR TU DISEÑO
-    function initAudioSystem() {
-      window.streams.audioElement = document.createElement('audio');
-      window.streams.audioElement.id = 'nativeAudio';
-      window.streams.audioElement.preload = 'auto';
-      document.body.appendChild(window.streams.audioElement);
-
-      const audio = window.streams.audioElement;
-
-      audio.addEventListener('loadstart', () => updateStatus('connecting', 'Conectando...'));
-      audio.addEventListener('canplay', () => updateStatus('ready', '✅ Listo'));
-      audio.addEventListener('playing', () => {
-        window.streams.isPlaying = true;
+    
+    function initAudio() {
+      audioElement = document.createElement('audio');
+      audioElement.id = 'nativeAudio';
+      audioElement.preload = 'auto';
+      document.body.appendChild(audioElement);
+      
+      audioElement.addEventListener('playing', () => {
+        isPlaying = true;
         updatePlayButtonVisual(true);
         updateStatus('live', '🔴 EN VIVO — Reproduciendo');
       });
-      audio.addEventListener('pause', () => {
-        window.streams.isPlaying = false;
+      
+      audioElement.addEventListener('pause', () => {
+        isPlaying = false;
         updatePlayButtonVisual(false);
         updateStatus('idle', 'Haz clic para reproducir');
       });
-      audio.addEventListener('error', () => {
-        window.streams.isPlaying = false;
+      
+      audioElement.addEventListener('error', () => {
+        isPlaying = false;
         updatePlayButtonVisual(false);
         updateStatus('error', '❌ Error — Intenta de nuevo');
       });
-    }
-
-    // ✅ CARGAR DATOS DE LA ESTACIÓN SIN TOCAR TU ESTRUCTURA
-    function loadStationData(index) {
-      const station = window.streams.stations[index];
-      window.streams.currentStation = index;
-
-      // Actualizar textos — respetando tus clases originales
-      const nameEl = document.querySelector('.station-name, .player-title, h1');
-      const descEl = document.querySelector('.station-description, .player-subtitle, .stream-status');
       
-      if (nameEl) nameEl.textContent = station.name;
-      if (descEl && !descEl.classList.contains('stream-status')) descEl.textContent = station.description;
-
-      // Cargar imagenes — respetando tus rutas originales
-      const coverEls = document.querySelectorAll('.player-cover-image, .song-cover-image, img.player-artwork');
-      coverEls.forEach(img => {
-        if (img && station.cover) img.src = station.cover;
-      });
-
-      // Cargar stream
-      if (station.stream_url && window.streams.audioElement) {
-        window.streams.audioElement.src = station.stream_url;
-        window.streams.audioElement.load();
-      }
+      // Interceptar el clic del botón Play que ya existe en tu página
+      const playCheck = setInterval(() => {
+        const btn = document.querySelector('.player-button-play, .play-button');
+        if (btn) {
+          clearInterval(playCheck);
+          btn.addEventListener('click', interceptPlay);
+        }
+      }, 300);
     }
-
-    // ✅ CONTROLES DEL BOTÓN PLAY — INTEGRADO A TU DISEÑO
-    function initCustomControls() {
-      const playBtn = document.querySelector('.player-button-play, .play-button, button[aria-label*="play"]');
+    
+    function interceptPlay() {
+      if (!audioElement) return;
       
-      if (playBtn) {
-        playBtn.addEventListener('click', toggleAudioPlayback);
+      if (!audioElement.src) {
+        // Tomar la URL del primer stream
+        if (window.streams && window.streams.stations[0]) {
+          audioElement.src = window.streams.stations[0].stream_url;
+        }
       }
-
-      // Delegar cambio de estación si tu JS original no lo hace
-      document.addEventListener('stationChange', (e) => {
-        loadStationData(e.detail.index);
-      });
-    }
-
-    function toggleAudioPlayback() {
-      const station = window.streams.stations[window.streams.currentStation];
-      const audio = window.streams.audioElement;
-
-      if (!station.stream_url) {
-        updateStatus('error', '⚠️ Próximamente disponible');
-        return;
-      }
-
-      if (window.streams.isPlaying) {
-        audio.pause();
+      
+      if (isPlaying) {
+        audioElement.pause();
       } else {
-        audio.play().catch(err => {
-          console.log('Autoplay bloqueado por navegador:', err);
+        audioElement.play().catch(err => {
+          console.log('Necesario clic primero:', err);
           updateStatus('connecting', 'Haz clic otra vez para iniciar');
         });
       }
     }
-
-    // ✅ ACTUALIZACIÓN VISUAL DEL BOTÓN — CLARO Y NOTABLE
+    
     function updatePlayButtonVisual(playing) {
-      const playBtn = document.querySelector('.player-button-play, .play-button');
-      if (!playBtn) return;
-
+      const btn = document.querySelector('.player-button-play, .play-button');
+      if (!btn) return;
+      
       if (playing) {
-        playBtn.classList.add('playing-state');
+        btn.classList.add('playing-state');
       } else {
-        playBtn.classList.remove('playing-state');
+        btn.classList.remove('playing-state');
       }
     }
-
-    // ✅ MENSAJE DE ESTADO CLARO
+    
     function updateStatus(type, message) {
       let statusEl = document.querySelector('.stream-status');
-      
       if (!statusEl) {
-        // Crear elemento de estado si no existe — NO rompe tu diseño
-        const descArea = document.querySelector('.station-description, .player-info, .player-subtitle');
-        if (descArea) {
+        const target = document.querySelector('.station-description, .player-info');
+        if (target) {
           statusEl = document.createElement('div');
           statusEl.className = 'stream-status';
-          descArea.parentNode.appendChild(statusEl);
+          target.appendChild(statusEl);
         }
       }
-      
       if (statusEl) {
         statusEl.className = 'stream-status ' + type;
         statusEl.textContent = message;
       }
     }
-
-    // ✅ VENTANA DE INSTALACIÓN
+    
     function initInstallPrompt() {
-      const modal = document.getElementById('installPromptModal');
-      if (!modal) return;
+      const modal = document.createElement('div');
+      modal.id = 'installPromptModal';
+      modal.className = 'install-prompt-modal';
+      modal.innerHTML = `
+        <div class="install-prompt-content">
+          <h2>📻 Bienvenido a La JuVeNiL</h2>
+          <p>¿Quieres instalar nuestra radio en tu dispositivo?</p>
+          <div class="install-buttons">
+            <button class="install-btn install" id="installBtn">📥 Instalar ahora</button>
+            <button class="install-btn close" id="closeInstallBtn">✕ Más tarde</button>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
       
       if (localStorage.getItem('pwaInstalled') === 'true') {
         modal.classList.add('install-prompt-hidden');
-        return;
       }
       
-      window.addEventListener('beforeinstallprompt', (e) => {
+      window.addEventListener('beforeinstallprompt', e => {
         e.preventDefault();
         deferredPrompt = e;
       });
       
-      const installBtn = document.getElementById('installBtn');
-      const closeBtn = document.getElementById('closeInstallBtn');
-      
-      if (installBtn) {
-        installBtn.addEventListener('click', async () => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
+      document.addEventListener('click', e => {
+        if (e.target.id === 'installBtn' && deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(choice => {
+            if (choice.outcome === 'accepted') {
               localStorage.setItem('pwaInstalled', 'true');
               modal.classList.add('install-prompt-hidden');
             }
             deferredPrompt = null;
-          }
-        });
-      }
-      
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
+          });
+        }
+        if (e.target.id === 'closeInstallBtn') {
           modal.classList.add('install-prompt-hidden');
-        });
-      }
+        }
+      });
       
       window.addEventListener('appinstalled', () => {
         localStorage.setItem('pwaInstalled', 'true');
         modal.classList.add('install-prompt-hidden');
-        deferredPrompt = null;
       });
     }
   </script>
-</head>
-
-<body class="preload">
-
-  <!-- ✅ VENTANA DE INSTALACIÓN — SUPERPUESTA, NO INTERFIERE CON TU DISEÑO -->
-  <div id="installPromptModal" class="install-prompt-modal install-prompt-hidden">
-    <div class="install-prompt-content">
-      <h2>📻 Bienvenido a La JuVeNiL</h2>
-      <p>¿Quieres instalar nuestra radio en tu dispositivo? ¡Escúchanos con un solo clic!</p>
-      <div class="install-buttons">
-        <button id="installBtn" class="install-btn install">📥 Instalar ahora</button>
-        <button id="closeInstallBtn" class="install-btn close">✕ Más tarde</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ✅ AQUÍ EMPIEZA TU ESTRUCTURA ORIGINAL — NO LA MODIFICO -->
-  <!-- Tu HTML original va aquí, igual que lo tenías antes -->
-
-</body>
-</html>
