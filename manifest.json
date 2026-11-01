@@ -1,31 +1,77 @@
 {
-  "id": "./",
-  "name": "La JuVeNiL - Te Enciende Bien",
-  "short_name": "La JuVeNiL",
-  "description": "Escucha La JuVeNiL y Radios Unidas en vivo.",
-  "lang": "es-PE",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#100810",
-  "theme_color": "#53012e",
-  "categories": [
-    "music",
-    "entertainment"
-  ],
-  "icons": [
+	"name": "La Juvenil",
+	"short_name": "La Juvenil",
+	"description": "Instala Nuestra Aplicacion y Escuchanos donde Quiera Que Estes.",
+	"icons" : [
+		{
+			"src": "assets/pwa.png",
+			"type": "image/png",
+			"sizes": "192x192"
+        },
+        {
+			"src": "assets/pwa.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "./?mode=pwa",
+	"theme_color": "#54077b",
+	"background_color": "#54077b",
+	"orientation": "portrait",
+	"display": "fullscreen",
+	"display_override": [
+		"fullscreen"
+	],
+	"lang": "ru",
+	"dir": "ltr",
+	"categories": [
+		"music"
+	],
+	"screenshots": [
     {
-      "src": "./assets/pwa-192.png",
-      "sizes": "192x192",
+      "src": "assets/redes.png",
       "type": "image/png",
-      "purpose": "any"
+      "sizes": "540x720",
+      "form_factor": "narrow"
     },
     {
-      "src": "./assets/pwa-512.png",
-      "sizes": "512x512",
+      "src": "assets/redes.png",
       "type": "image/png",
-      "purpose": "any"
+      "sizes": "540x720",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/redes.png",
+      "type": "image/png",
+      "sizes": "540x720",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/redes.png",
+      "type": "image/png",
+      "sizes": "720x540",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/redes.png",
+      "type": "image/png",
+      "sizes": "720x540",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/redes.png",
+      "type": "image/png",
+      "sizes": "720x540",
+      "form_factor": "wide"
     }
-  ]
+  ],
+  "related_applications": [
+  {
+    "platform": "play",
+    "url": "https://miradioenvivo.com"
+  }
+]
+
 }
+
+
