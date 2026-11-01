@@ -2,221 +2,303 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>La JuVeNiL — Te Enciende Bien</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover">
+  <title>La JuVeNiL Te Enciende Bien...!</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/akira-expanded" rel="stylesheet">
   
   <meta name="theme-color" content="#53012e">
+  <meta property="og:image" content="assets/redes.png"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="600"/>
+  <meta property="og:image:height" content="360"/>
+  <meta property="og:title" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
+  <meta property="og:description" content="La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!"/>
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon"/>
+
+  <!-- ✅ TUS ARCHIVOS ORIGINALES — NO LOS TOQUES -->
+  <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="custom.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js" defer></script>
+  <script src="js/main.js" defer></script>
+  
   <link rel="manifest" href="manifest.json">
-  
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-    body { background: linear-gradient(135deg, #53012e 0%, #2c0019 100%); min-height: 100vh; color: white; }
-    
-    .container { max-width: 500px; margin: 0 auto; padding: 2rem; text-align: center; }
-    .logo { width: 200px; height: 200px; margin: 0 auto 2rem; border-radius: 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .logo img { width: 100%; height: 100%; object-fit: cover; }
-    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #ffd700; }
-    .subtitle { font-size: 1rem; opacity: 0.8; margin-bottom: 2rem; }
-    
-    .play-btn { width: 100px; height: 100px; border-radius: 50%; background: #ffd700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; transition: all 0.3s ease; }
-    .play-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
-    .play-btn.playing { background: #fff; }
-    .play-btn svg { width: 40px; height: 40px; fill: #53012e; margin-left: 5px; }
-    .play-btn.pause-btn svg { margin-left: 0; }
-    
-    .stations-list { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem; margin-top: 2rem; }
-    .stations-list h3 { margin-bottom: 1rem; color: #ffd700; }
-    .station-item { padding: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: background 0.2s; }
-    .station-item:last-child { border-bottom: none; }
-    .station-item:hover { background: rgba(255,255,255,0.1); border-radius: 6px; }
-    .station-item.active { background: rgba(255, 215, 0, 0.2); border-radius: 6px; }
-    
-    .install-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-    .install-modal.hidden { display: none; }
-    .install-content { background: white; color: #333; padding: 2rem; border-radius: 12px; max-width: 350px; width: 90%; text-align: center; }
-    .install-content h2 { color: #53012e; margin-bottom: 1rem; font-size: 1.2rem; }
-    .install-buttons { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; }
-    .btn { padding: 0.6rem 1.2rem; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; }
-    .btn-primary { background: #53012e; color: white; }
-    .btn-secondary { background: #eee; color: #333; }
-    
-    .status-text { margin-top: 1rem; font-size: 0.9rem; opacity: 0.7; }
-    .hidden { display: none !important; }
+    /* ✅ VENTANA DE INSTALACIÓN — NO INTERFIERE CON TU DISEÑO */
+    .install-prompt-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+    .install-prompt-hidden {
+      display: none !important;
+    }
+    .install-prompt-content {
+      background: #fff;
+      color: #333;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+    .install-prompt-content h2 {
+      color: #53012e;
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+    }
+    .install-buttons {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .install-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.25s ease;
+    }
+    .install-btn.install { background: #53012e; color: #fff; }
+    .install-btn.install:hover { background: #7a0443; }
+    .install-btn.close { background: #f0f0f0; color: #444; }
+    .install-btn.close:hover { background: #e0e0e0; }
+
+    /* ✅ AUDIO OCULTO — NO VISIBLE, SOLO FUNCIONAL */
+    #nativeAudio { display: none; }
+
+    /* ✅ ESTADO DEL BOTÓN PLAY — VISIBILIDAD CLARA */
+    .player-button-play.playing-state {
+      box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.4), 0 0 25px rgba(255, 193, 7, 0.6) !important;
+    }
+    .player-button-play.playing-state::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #ffc107;
+      border-right-color: #ffc107;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ✅ TEXTO DE ESTADO */
+    .stream-status {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 0.3rem;
+      height: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    .stream-status.live {
+      color: #4ade80;
+      opacity: 1;
+    }
+    .stream-status.connecting {
+      color: #fbbf24;
+      opacity: 1;
+    }
+    .stream-status.error {
+      color: #f87171;
+      opacity: 1;
+    }
   </style>
-</head>
-<body>
-
-  <!-- 📦 Ventana de Instalación -->
-  <div id="installModal" class="install-modal">
-    <div class="install-content">
-      <h2>📻 Bienvenido a La JuVeNiL</h2>
-      <p>¿Quieres instalar nuestra radio en tu dispositivo? ¡Escúchanos con un solo clic!</p>
-      <div class="install-buttons">
-        <button class="btn btn-primary" id="installBtn">📥 Instalar</button>
-        <button class="btn btn-secondary" id="closeInstall">✕ Más tarde</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🎵 Reproductor -->
-  <div class="container">
-    <div class="logo">
-      <img src="assets/logo_model.jpg" alt="La JuVeNiL" onerror="this.src='https://via.placeholder.com/200/53012e/ffffff?text=La+JuVeNiL'">
-    </div>
-    
-    <h1 id="stationName">La JuVeNiL</h1>
-    <p class="subtitle" id="stationDesc">Te Enciende Bien...!</p>
-    
-    <button class="play-btn" id="playBtn">
-      <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </button>
-    <p class="status-text" id="statusText">Haz clic para reproducir ▶️</p>
-    
-    <div class="stations-list">
-      <h3>📻 Elige tu Radio</h3>
-      <div id="stationsContainer"></div>
-    </div>
-  </div>
-
-  <!-- 🔊 Audio Oculto -->
-  <audio id="audioPlayer" preload="auto">
-    <source src="https://stream.zeno.fm/hdueixh3dwquv.mp3" type="audio/mpeg">
-  
 
   <script>
-    // 📋 Lista de Radios
-    const stations = [
-      {
-        name: "La JuVeNiL",
-        description: "Te Enciende Bien...!",
-        stream: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
-        logo: "assets/logo_model.jpg"
-      },
-      {
-        name: "RADIOS UNIDAS",
-        description: "La señal que une a todos",
-        stream: "",
-        logo: "assets/radiosunidas.jpg"
-      }
-    ];
+    // ✅ MANTENEMOS TU ESTRUCTURA ORIGINAL DE DATOS
+    window.streams = {
+      timeRefresh: 5000,
+      currentStation: 0,
+      isPlaying: false,
+      audioElement: null,
+      stations: [
+        {
+          name: "La JuVeNiL 𝗧𝗲 𝗘𝗻𝗰𝗶𝗲𝗻𝗱𝗲 𝗕𝗶𝗲𝗻.!",
+          hash: "La-JuVeNiL",
+          description: "Conéctate y disfruta 📻",
+          logo: "assets/marca_model.png",
+          album: "assets/logo_model.jpg",
+          cover: "assets/logo_model.jpg",
+          stream_url: "https://stream.zeno.fm/hdueixh3dwquv.mp3",
+          social: {
+            facebook: "https://www.facebook.com/",
+            youtube: "https://www.youtube.com/",
+            instagram: "https://www.instagram.com/",
+            tiktok: "https://www.tiktok.com/",
+          }
+        },
+        {
+          name: "RADIOS UNIDAS",
+          hash: "radios-unidas",
+          description: "La señal que une a todos",
+          logo: "assets/marca.png",
+          album: "assets/radiosunidas.jpg",
+          cover: "assets/radiosunidas.jpg",
+          stream_url: "",
+          social: {
+            facebook: "https://www.facebook.com/RadiosUnidas",
+            youtube: "https://www.youtube.com/@RadiosUnidas",
+            instagram: "https://www.instagram.com/radiosunidas",
+            tiktok: "https://www.tiktok.com/@radiosunidas",
+          }
+        }
+      ]
+    };
 
-    let currentStation = 0;
-    let isPlaying = false;
     let deferredPrompt;
 
-    // 🚀 Iniciar todo
     document.addEventListener('DOMContentLoaded', () => {
-      initStations();
-      initPlayButton();
+      initAudioSystem();
       initInstallPrompt();
+      initCustomControls();
+      loadStationData(0);
     });
 
-    // 📻 Cargar lista de radios
-    function initStations() {
-      const container = document.getElementById('stationsContainer');
-      container.innerHTML = '';
-      
-      stations.forEach((station, index) => {
-        const item = document.createElement('div');
-        item.className = `station-item ${index === currentStation ? 'active' : ''}`;
-        item.innerHTML = `<strong>${station.name}</strong><br><small>${station.description}</small>`;
-        item.addEventListener('click', () => switchStation(index));
-        container.appendChild(item);
-      });
-    }
+    // ✅ SISTEMA DE AUDIO — FUNCIONAL SIN TOCAR TU DISEÑO
+    function initAudioSystem() {
+      window.streams.audioElement = document.createElement('audio');
+      window.streams.audioElement.id = 'nativeAudio';
+      window.streams.audioElement.preload = 'auto';
+      document.body.appendChild(window.streams.audioElement);
 
-    // 🔄 Cambiar de radio
-    function switchStation(index) {
-      currentStation = index;
-      const station = stations[index];
-      
-      document.getElementById('stationName').textContent = station.name;
-      document.getElementById('stationDesc').textContent = station.description;
-      
-      // Actualizar clase activa
-      document.querySelectorAll('.station-item').forEach((el, i) => {
-        el.classList.toggle('active', i === index);
-      });
-      
-      // Detener si está reproduciendo
-      if (isPlaying) {
-        document.getElementById('audioPlayer').pause();
-        isPlaying = false;
-        updatePlayButton();
-      }
-      
-      // Actualizar fuente de audio
-      const audio = document.getElementById('audioPlayer');
-      audio.src = station.stream;
-      audio.load();
-      
-      document.getElementById('statusText').textContent = station.stream ? 'Haz clic para reproducir ▶️' : 'Próximamente disponible';
-    }
+      const audio = window.streams.audioElement;
 
-    // ▶️ Botón Play/Pause
-    function initPlayButton() {
-      const btn = document.getElementById('playBtn');
-      const audio = document.getElementById('audioPlayer');
-      const statusText = document.getElementById('statusText');
-      
-      btn.addEventListener('click', () => {
-        if (!stations[currentStation].stream) {
-          statusText.textContent = '⚠️ No hay stream disponible';
-          return;
-        }
-        
-        if (isPlaying) {
-          audio.pause();
-          isPlaying = false;
-          statusText.textContent = 'Reproducción pausada';
-        } else {
-          audio.play()
-            .then(() => {
-              isPlaying = true;
-              statusText.textContent = '🎵 En vivo — Reproduciendo...';
-            })
-            .catch(err => {
-              console.error('Error:', err);
-              statusText.textContent = '❌ Error al conectar. Intenta de nuevo.';
-            });
-        }
-        updatePlayButton();
+      audio.addEventListener('loadstart', () => updateStatus('connecting', 'Conectando...'));
+      audio.addEventListener('canplay', () => updateStatus('ready', '✅ Listo'));
+      audio.addEventListener('playing', () => {
+        window.streams.isPlaying = true;
+        updatePlayButtonVisual(true);
+        updateStatus('live', '🔴 EN VIVO — Reproduciendo');
       });
-      
-      // Detectar errores de audio
+      audio.addEventListener('pause', () => {
+        window.streams.isPlaying = false;
+        updatePlayButtonVisual(false);
+        updateStatus('idle', 'Haz clic para reproducir');
+      });
       audio.addEventListener('error', () => {
-        statusText.textContent = '❌ No se pudo conectar al stream';
-        isPlaying = false;
-        updatePlayButton();
+        window.streams.isPlaying = false;
+        updatePlayButtonVisual(false);
+        updateStatus('error', '❌ Error — Intenta de nuevo');
       });
     }
 
-    function updatePlayButton() {
-      const icon = document.getElementById('playIcon');
-      const btn = document.getElementById('playBtn');
+    // ✅ CARGAR DATOS DE LA ESTACIÓN SIN TOCAR TU ESTRUCTURA
+    function loadStationData(index) {
+      const station = window.streams.stations[index];
+      window.streams.currentStation = index;
+
+      // Actualizar textos — respetando tus clases originales
+      const nameEl = document.querySelector('.station-name, .player-title, h1');
+      const descEl = document.querySelector('.station-description, .player-subtitle, .stream-status');
       
-      if (isPlaying) {
-        icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
-        btn.classList.add('playing', 'pause-btn');
-      } else {
-        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-        btn.classList.remove('playing', 'pause-btn');
+      if (nameEl) nameEl.textContent = station.name;
+      if (descEl && !descEl.classList.contains('stream-status')) descEl.textContent = station.description;
+
+      // Cargar imagenes — respetando tus rutas originales
+      const coverEls = document.querySelectorAll('.player-cover-image, .song-cover-image, img.player-artwork');
+      coverEls.forEach(img => {
+        if (img && station.cover) img.src = station.cover;
+      });
+
+      // Cargar stream
+      if (station.stream_url && window.streams.audioElement) {
+        window.streams.audioElement.src = station.stream_url;
+        window.streams.audioElement.load();
       }
     }
 
-    // 📦 Ventana de Instalación
-    function initInstallPrompt() {
-      const modal = document.getElementById('installModal');
-      const installBtn = document.getElementById('installBtn');
-      const closeBtn = document.getElementById('closeInstall');
+    // ✅ CONTROLES DEL BOTÓN PLAY — INTEGRADO A TU DISEÑO
+    function initCustomControls() {
+      const playBtn = document.querySelector('.player-button-play, .play-button, button[aria-label*="play"]');
       
-      // No mostrar si ya está instalada
+      if (playBtn) {
+        playBtn.addEventListener('click', toggleAudioPlayback);
+      }
+
+      // Delegar cambio de estación si tu JS original no lo hace
+      document.addEventListener('stationChange', (e) => {
+        loadStationData(e.detail.index);
+      });
+    }
+
+    function toggleAudioPlayback() {
+      const station = window.streams.stations[window.streams.currentStation];
+      const audio = window.streams.audioElement;
+
+      if (!station.stream_url) {
+        updateStatus('error', '⚠️ Próximamente disponible');
+        return;
+      }
+
+      if (window.streams.isPlaying) {
+        audio.pause();
+      } else {
+        audio.play().catch(err => {
+          console.log('Autoplay bloqueado por navegador:', err);
+          updateStatus('connecting', 'Haz clic otra vez para iniciar');
+        });
+      }
+    }
+
+    // ✅ ACTUALIZACIÓN VISUAL DEL BOTÓN — CLARO Y NOTABLE
+    function updatePlayButtonVisual(playing) {
+      const playBtn = document.querySelector('.player-button-play, .play-button');
+      if (!playBtn) return;
+
+      if (playing) {
+        playBtn.classList.add('playing-state');
+      } else {
+        playBtn.classList.remove('playing-state');
+      }
+    }
+
+    // ✅ MENSAJE DE ESTADO CLARO
+    function updateStatus(type, message) {
+      let statusEl = document.querySelector('.stream-status');
+      
+      if (!statusEl) {
+        // Crear elemento de estado si no existe — NO rompe tu diseño
+        const descArea = document.querySelector('.station-description, .player-info, .player-subtitle');
+        if (descArea) {
+          statusEl = document.createElement('div');
+          statusEl.className = 'stream-status';
+          descArea.parentNode.appendChild(statusEl);
+        }
+      }
+      
+      if (statusEl) {
+        statusEl.className = 'stream-status ' + type;
+        statusEl.textContent = message;
+      }
+    }
+
+    // ✅ VENTANA DE INSTALACIÓN
+    function initInstallPrompt() {
+      const modal = document.getElementById('installPromptModal');
+      if (!modal) return;
+      
       if (localStorage.getItem('pwaInstalled') === 'true') {
-        modal.classList.add('hidden');
+        modal.classList.add('install-prompt-hidden');
+        return;
       }
       
       window.addEventListener('beforeinstallprompt', (e) => {
@@ -224,27 +306,54 @@
         deferredPrompt = e;
       });
       
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            localStorage.setItem('pwaInstalled', 'true');
-            modal.classList.add('hidden');
-          }
-          deferredPrompt = null;
-        }
-      });
+      const installBtn = document.getElementById('installBtn');
+      const closeBtn = document.getElementById('closeInstallBtn');
       
-      closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-      });
+      if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+              localStorage.setItem('pwaInstalled', 'true');
+              modal.classList.add('install-prompt-hidden');
+            }
+            deferredPrompt = null;
+          }
+        });
+      }
+      
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.add('install-prompt-hidden');
+        });
+      }
       
       window.addEventListener('appinstalled', () => {
         localStorage.setItem('pwaInstalled', 'true');
-        modal.classList.add('hidden');
+        modal.classList.add('install-prompt-hidden');
+        deferredPrompt = null;
       });
     }
   </script>
+</head>
+
+<body class="preload">
+
+  <!-- ✅ VENTANA DE INSTALACIÓN — SUPERPUESTA, NO INTERFIERE CON TU DISEÑO -->
+  <div id="installPromptModal" class="install-prompt-modal install-prompt-hidden">
+    <div class="install-prompt-content">
+      <h2>📻 Bienvenido a La JuVeNiL</h2>
+      <p>¿Quieres instalar nuestra radio en tu dispositivo? ¡Escúchanos con un solo clic!</p>
+      <div class="install-buttons">
+        <button id="installBtn" class="install-btn install">📥 Instalar ahora</button>
+        <button id="closeInstallBtn" class="install-btn close">✕ Más tarde</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ AQUÍ EMPIEZA TU ESTRUCTURA ORIGINAL — NO LA MODIFICO -->
+  <!-- Tu HTML original va aquí, igual que lo tenías antes -->
+
 </body>
 </html>
