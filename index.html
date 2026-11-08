@@ -23551,8 +23551,8 @@
 
         {
           name: "La Juvenil",
-          hash: "Joven x siempre",
-          description: "",
+          hash: "JOVENIL",
+          description: "Vibra alto y fuerte desde pedregal majes",
           logo: "assets/marca.png",
           album: "assets/estacion90s.jpg",
           cover: "assets/estacion90s.jpg",
@@ -23616,13 +23616,14 @@
         {
           name: "ECO RADIO",
           hash: "ecoroco",
-          description: "",
-          logo: "assets/marca.png",
+          description: "SE SIENTE ...!",
+          logo: "assets/ecoradio.png",
           album: "assets/ecoradio.jpg",
           cover: "assets/ecoradio.jpg",
 
           api: "https://api.zeno.fm/mounts/metadata/cj2bdvs3quytv",
           stream_url: "https://stream.zeno.fm/cj2bdvs3quytv",
+          tv_url: "https://closeradio.tv/lafiestamochis/player.htm",
 
           server: "spotify",
 
@@ -23915,67 +23916,7 @@
 
     <div class="modal-overlay"></div>
 
-
-<!-- Elemento de audio -->
-  <audio id="miAudio" src="sel/jovenil.mp3" preload="auto">
-    Tu navegador no soporta audio.
-  
-
-  <button id="btnActivar">✅ Activar Repetición</button>
-  <button id="btnDesactivar">⏹️ Detener</button>
-  <p id="mensaje">Listo — presiona Activar para empezar</p>
-
-  <script>
-    const audio = document.getElementById('miAudio');
-    const btnActivar = document.getElementById('btnActivar');
-    const btnDesactivar = document.getElementById('btnDesactivar');
-    const mensaje = document.getElementById('mensaje');
-    
-    let temporizador = null;
-    const INTERVALO = 5 * 60 * 1000; // ⏱️ 5 minutos = 300,000 ms
-
-    // Reproduce el audio desde el principio
-    function reproducir() {
-      audio.currentTime = 0; // Vuelve al inicio
-      audio.play()
-        .then(() => {
-          mensaje.textContent = '🔊 Reproduciendo — se repetirá cada 5 minutos';
-        })
-        .catch(err => {
-          mensaje.textContent = '⚠️ Haz clic en Activar primero';
-        });
-    }
-
-    // Activar
-    btnActivar.addEventListener('click', () => {
-      if (temporizador) return; // Ya está activo
-      
-      reproducir(); // Suena la primera vez ahora mismo
-      temporizador = setInterval(reproducir, INTERVALO); // Cada 5 minutos
-      
-      mensaje.textContent = '✅ Activado — cada 5 minutos sin recargar';
-      btnActivar.disabled = true;
-      btnDesactivar.disabled = false;
-    });
-
-    // Desactivar
-    btnDesactivar.addEventListener('click', () => {
-      if (temporizador) {
-        clearInterval(temporizador);
-        temporizador = null;
-        audio.pause();
-        audio.currentTime = 0;
-        
-        mensaje.textContent = '⏹️ Detenido';
-        btnActivar.disabled = false;
-        btnDesactivar.disabled = true;
-      }
-    });
-
-    btnDesactivar.disabled = true;
-  </script>
-
-
+<CENTER><iframe src="cel.html" width="00%" height="0" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe></center>
 
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
