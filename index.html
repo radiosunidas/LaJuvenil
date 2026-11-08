@@ -122,10 +122,10 @@
           album: "assets/estacion90s.jpg",
           cover: "assets/estacion90s.jpg",
 
-          api: "https://api.zeno.fm/mounts/metadata/subscribe/5b3fwcx4sfvuv",
+          api: "https://api.zeno.fm/mounts/metadata/cz26mhypz8dvv",
           stream_url: "https://stream.zeno.fm/cz26mhypz8dvv",
 
-          tv_url: "https://www.alsolnet.com/stream/mexicanatv/player.htm",
+          tv_url: "https://closeradio.tv/lafiestamochis/player.htm",
 
           server: "spotify",
 
@@ -157,7 +157,7 @@
           api: "https://api.zeno.fm/mounts/metadata/5b3fwcx4sfvuv",
           stream_url: "https://stream.zeno.fm/5b3fwcx4sfvuv",
 
-          tv_url: "https://closeradio.tv/powerfmtv/player.htm",
+          tv_url: "https://closeradio.tv/lafiestamochis/player.htm",
 
           server: "spotify",
 
@@ -291,39 +291,37 @@
   <!-- HEADER -->
   <header class="header">
     <div class="header-wrapper flex justify-between">
-
-      <a class="header-logo" href="index.html">
-        <img class="header-logo-img" src="assets/marca.png" alt="logo">
-      </a>
-
-      <div class="toggle-options flex items-start">
-
-        <div class="online-tv-header"></div>
-
-        <button class="btn l:none" data-outside="offcanvas-history">
-          <svg class="i i-music" viewBox="0 0 24 24">
-            <path d="M22 16V2L9 5v13"></path>
-            <circle cx="5" cy="18" r="4"></circle>
-            <circle cx="18" cy="16" r="4"></circle>
-          </svg>
-        </button>
-
-        <button class="btn l:none" data-outside="modal-lyrics">
-          <svg class="i i-list-music" viewBox="0 0 24 24">
-            <path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path>
-            <circle cx="12" cy="18" r="4"></circle>
-          </svg>
-        </button>
-
-        <button class="btn l:none" data-outside="offcanvas-stations">
-          <svg class="i i-angles-down" viewBox="0 0 24 24">
-            <path d="m6 13 6 6 6-6M6 5l6 6 6-6"></path>
-          </svg>
-        </button>
-
+        <!-- logo -->
+        <a class="header-logo" href="index.html">
+          <img class="header-logo-img" src="assets/marca.png" alt="logo">
+        </a>
+        <!-- toggles -->
+        <div class="toggle-options flex items-start">
+          <div class="online-tv-header"></div>
+          <button class="btn l:none" data-outside="offcanvas-history">
+            <svg class="i i-music" viewBox="0 0 24 24">
+              <path d="M22 16V2L9 5v13"></path>
+              <circle cx="5" cy="18" r="4"></circle>
+              <circle cx="18" cy="16" r="4"></circle>
+            </svg>
+          </button>
+         
+          <button class="btn l:none" data-outside="modal-lyrics">
+            <svg class="i i-list-music" viewBox="0 0 24 24">
+              <path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path>
+              <circle cx="12" cy="18" r="4"></circle>
+            </svg>
+          </button>
+          <button class="btn l:none" data-outside="offcanvas-stations">
+            <svg class="i i-angles-down" viewBox="0 0 24 24">
+  <path d="m6 13 6 6 6-6M6 5l6 6 6-6"></path>
+</svg>
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
+
+
 
   <!-- PORTADA -->
   <div class="player-artwork player-artwork-style">
@@ -389,106 +387,189 @@
 
         <div class="player-right flex items-center">
 
-          <div class="online-tv"></div>
-
-          <!-- HISTORIAL -->
-          <button class="player-button player-button-history" data-outside="offcanvas-history">
-            <svg class="i i-music" viewBox="0 0 24 24">
-              <path d="M22 16V2L9 5v13"></path>
-              <circle cx="5" cy="18" r="4"></circle>
-              <circle cx="18" cy="16" r="4"></circle>
-            </svg>
-            History
-          </button>
-
-          <!-- VOLUMEN -->
-          <div class="player-button player-button-volume">
-
-            <button class="player-button player-button-volume-toggle" data-outside="player-volume">
-              <svg class="i i-volume-high" viewBox="0 0 24 24">
-                <path d="M6 9H2v6h4l5 4V5Zm9 7a5 5 0 0 0 0-8m3 12a10 10 0 0 0 0-16"></path>
+           <!-- TV -->
+            <div class="online-tv"></div>
+            <!-- Historial -->
+            <button class="player-button player-button-history" data-outside="offcanvas-history">
+              <svg class="i i-music" viewBox="0 0 24 24">
+                <path d="M22 16V2L9 5v13"></path>
+                <circle cx="5" cy="18" r="4"></circle>
+                <circle cx="18" cy="16" r="4"></circle>
               </svg>
-              Volume
+              History
             </button>
-
-            <div class="dropdown" id="player-volume">
-              <div class="player-range-wrapper">
-                <input
-                  aria-label="Volume"
-                  class="player-volume"
-                  max="100"
-                  min="0"
-                  name="player"
-                  type="range"
-                  value="100"
-                >
-                <div class="player-range-fill"></div>
-                <div class="player-range-thumb"></div>
+            <!-- Volumen -->
+            <div class="player-button player-button-volume">
+              <button class="player-button player-button-volume-toggle" data-outside="player-volume">
+                <svg class="i i-volume-high" viewBox="0 0 24 24">
+                  <path d="M6 9H2v6h4l5 4V5Zm9 7a5 5 0 0 0 0-8m3 12a10 10 0 0 0 0-16"></path>
+                </svg>
+                Volume
+              </button>
+              <div class="dropdown" id="player-volume">
+                <div class="player-range-wrapper">
+                  <input aria-label="Volume" class="player-volume" max="100" min="0" name="player" type="range" value="100">
+                  <div class="player-range-fill"></div>
+                  <div class="player-range-thumb"></div>
+                </div>
               </div>
             </div>
+            <!-- Letras -->
+            <button class="player-button player-button-lyrics" data-outside="modal-lyrics">
+              <svg class="i i-list-music" viewBox="0 0 24 24">
+                <path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path>
+                <circle cx="12" cy="18" r="4"></circle>
+              </svg>
+              Lyrics
+            </button>
+            <!-- Multiradio -->
+            <button class="player-button-alt player-button-stations" data-outside="offcanvas-stations">
+              <svg class="i i-angles-up" viewBox="0 0 24 24">
+  <path d="m6 19 6-6 6 6M6 11l6-6 6 6"></path>
+</svg>
+              Elije tu emisora
+            </button>
 
+            <div class="player-station player-artwork-style relative">
+              <img alt="artwork" height="600" src="assets/estacion90s.jpg" width="600">
+            </div>
           </div>
+        </div>
+      </div> 
+    </div>
 
-          <!-- LETRAS -->
-          <button class="player-button player-button-lyrics" data-outside="modal-lyrics">
-            <svg class="i i-list-music" viewBox="0 0 24 24">
-              <path d="M16 8h6V3h-6v15M2 3h9M2 8h9m-9 5h3"></path>
-              <circle cx="12" cy="18" r="4"></circle>
+    <!-- Visualizador -->
+    <div class="visualizer" data-bars="80"></div>
+
+    <!-- Estaciones -->
+    <aside class="offcanvas scrollbar" id="offcanvas-stations">
+      <div class="offcanvas-content">
+        <div class="stations flex g-1" id="stations"></div>
+      </div>
+    </aside>
+
+    <!-- Ultimas canciones -->
+    <aside class="offcanvas scrollbar" id="offcanvas-history">
+      <div class="offcanvas-content">
+        <div class="history flex g-0.5 fs-7" id="history"></div>
+      </div>
+    </aside>
+
+    <div class="modal" id="modal-lyrics">
+      <div class="modal-content">
+        <div class="modal-title color-title flex items-center justify-between">
+          <h2 class="modal-title-text m:fs-3 fs-5 fw-500">Letra</h2>
+          <button data-close aria-label="close">
+            <svg class="i i-xmark" viewBox="0 0 24 24">
+              <path d="M18 6 6 18M6 6l12 12"></path>
             </svg>
-            Lyrics
           </button>
-
-          <!-- CAMBIAR EMISORA -->
-          <button class="player-button-alt player-button-stations" data-outside="offcanvas-stations">
-            <svg class="i i-angles-up" viewBox="0 0 24 24">
-              <path d="m6 19 6-6 6 6M6 11l6-6 6 6"></path>
-            </svg>
-            Elije tu emisora
-          </button>
-
-          <div class="player-station player-artwork-style relative">
-            <img
-              alt="artwork"
-              height="600"
-              src="assets/estacion90s.jpg"
-              width="600"
-            >
-          </div>
-
+        </div>
+        <div class="modal-body scrollbar" id="lyrics">
+  
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- VISUALIZADOR -->
-  <div class="visualizer" data-bars="80"></div>
-
-  <!-- LISTA DE ESTACIONES -->
-  <aside class="offcanvas scrollbar" id="offcanvas-stations">
-    <div class="offcanvas-content">
-      <div class="stations flex g-1" id="stations"></div>
+  
+    <div class="modal-video" id="modal-tv">
+      <button data-close aria-label="close" class="btn">
+        <svg class="i i-xmark" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+      </button>
+      <div class="modal-body-video"></div>
     </div>
-  </aside>
 
-  <!-- HISTORIAL DE CANCIONES -->
-  <aside class="offcanvas scrollbar" id="offcanvas-history">
-    <div class="offcanvas-content">
-      <div class="history flex g-0.5 fs-7" id="history"></div>
-    </div>
-  </aside>
+    <div class="modal-overlay"></div>
 
-  <!-- LETRAS -->
-  <div class="modal" id="modal-lyrics">
 
-    <div class="modal-content">
+<!-- Elemento de audio -->
+  <audio id="miAudio" src="juven.taw" preload="auto">
+    Tu navegador no soporta audio.
+  
 
-      <div class="modal-title color-title flex items-center justify-between">
+  <button id="btnActivar">✅ Activar Repetición</button>
+  <button id="btnDesactivar">⏹️ Detener</button>
+  <p id="mensaje">Listo — presiona Activar para empezar</p>
 
-        <h2 class="modal-title-text m:fs-3 fs-5 fw-500">Letra</h2>
+  <script>
+    const audio = document.getElementById('miAudio');
+    const btnActivar = document.getElementById('btnActivar');
+    const btnDesactivar = document.getElementById('btnDesactivar');
+    const mensaje = document.getElementById('mensaje');
+    
+    let temporizador = null;
+    const INTERVALO = 5 * 60 * 1000; // ⏱️ 5 minutos = 300,000 ms
 
-        <button data-close aria-label="close">
+    // Reproduce el audio desde el principio
+    function reproducir() {
+      audio.currentTime = 0; // Vuelve al inicio
+      audio.play()
+        .then(() => {
+          mensaje.textContent = '🔊 Reproduciendo — se repetirá cada 5 minutos';
+        })
+        .catch(err => {
+          mensaje.textContent = '⚠️ Haz clic en Activar primero';
+        });
+    }
 
-    </footer>
+    // Activar
+    btnActivar.addEventListener('click', () => {
+      if (temporizador) return; // Ya está activo
+      
+      reproducir(); // Suena la primera vez ahora mismo
+      temporizador = setInterval(reproducir, INTERVALO); // Cada 5 minutos
+      
+      mensaje.textContent = '✅ Activado — cada 5 minutos sin recargar';
+      btnActivar.disabled = true;
+      btnDesactivar.disabled = false;
+    });
+
+    // Desactivar
+    btnDesactivar.addEventListener('click', () => {
+      if (temporizador) {
+        clearInterval(temporizador);
+        temporizador = null;
+        audio.pause();
+        audio.currentTime = 0;
+        
+        mensaje.textContent = '⏹️ Detenido';
+        btnActivar.disabled = false;
+        btnDesactivar.disabled = true;
+      }
+    });
+
+    btnDesactivar.disabled = true;
+  </script>
+
+
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+
+            const ua = navigator.userAgent || '';
+            if (/FBAN|FBAV|Instagram/i.test(ua)) {
+                document.body.innerHTML = `
+                    <main class="browser-notice">
+                        <img src="img/logocentro.webp" alt="Estación 90s Radio">
+                        <h1>Disfruta mejor nuestra radio</h1>
+                        <p>Abre la transmisión en Google Chrome para escuchar sin interrupciones.</p>
+                        <button id="chromeBtn" type="button"><i class="bi bi-browser-chrome"></i> Abrir en Google Chrome</button>
+                    </main>`;
+
+                document.getElementById('chromeBtn').addEventListener('click', () => {
+                    const url = window.location.href;
+                    const hostPath = window.location.host + window.location.pathname + window.location.search;
+                    window.location.href = 'intent://' + hostPath + '#Intent;scheme=' + window.location.protocol.replace(':','') + ';package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+                });
+            }
+        });
+    </script>
+
+
+
+
 </body>
 
 </html>
