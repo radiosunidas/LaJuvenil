@@ -1,0 +1,44 @@
+﻿<html>
+<head>
+<meta charset=utf-8 />
+<title>CLOSE RadioTV</title>
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/player@0.10/dist/clappr.min.js"></script>
+    <script type="text/javascript" src="https://closeradio.tv/cdnvideo/info-button.min.js"></script>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div class="take-id" id="Player"></div>
+<script> player = new Clappr.Player({
+    "parentId": "#Player",
+    "autoPlay": true,
+    "mute": false,
+    "height": "100%",
+    "width": "100%",
+	playback: {
+		playInline: false
+	},
+    plugins: [InfoButton],
+    infoButtonConfig: {
+        button: {
+            image: '"https://cdn.jsdelivr.net/cdnvideo/closeradiotv_html5.png'
+        },
+        title: '',
+        options: [
+            {label: 'About Visual Radio', link: 'https://www.closeradiotv.com/'}
+        ]
+    },
+    "mediacontrol": {
+        "seekbar": "#ff0000",
+        "buttons": "#ff0000"
+    },
+	events: {
+	onError: function() { console.log('Error Loading.'); setTimeout(() => player.play(), 15000) },
+	onEnded: function() { console.log('Stream end occured!'); setTimeout(() => player.play(), 15000) }
+	},
+    "source": "http://200.115.120.1:8000/play/ca030/index.m3u8",
+	disableErrorScreen: true
+})</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"d345f62c53fd44e3a50a0e5a79c90b8c","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
